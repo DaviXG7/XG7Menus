@@ -1,0 +1,4 @@
+name: XG7Menus
+version: '${project.version}'
+main: com.xg7network.xg7menus.XG7Menus
+api-version: '1.16'
