@@ -1,5 +1,6 @@
 package com.xg7network.xg7menus.API.Inventory.Manager;
 
+import com.xg7network.xg7menus.API.Inventory.InvAndItems.Page.Page;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.Menu;
 import org.bukkit.event.EventHandler;
@@ -15,16 +16,14 @@ public class MenuListener implements Listener {
         event.setCancelled(true);
         switch (menu.getType()) {
             case BASIC:
+            case PAGE:
 
                 InventoryItem inventoryItem = menu.getItem(event.getCurrentItem());
                 if (inventoryItem == null) return;
                 inventoryItem.execute();
 
                 return;
-            case PLAYER:
-                return;
-            case SELECTOR:
-                return;
+
         }
 
     }

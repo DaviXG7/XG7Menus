@@ -7,11 +7,11 @@ import org.bukkit.entity.Player;
 //Coming soon
 
 public class SelectorMenu extends Menu {
-    public SelectorMenu(MenuType type, String title, int size) {
-        super(type, title, size);
+    public SelectorMenu(String title, int size) {
+        super(MenuType.SELECTOR, title, size);
     }
 
-    public SelectorMenu(MenuType type, String title, int size, Player player) {
-        super(type, title, size, player);
+    public SelectorMenu(String title, int size, Player player) {
+        super(MenuType.SELECTOR, title, size, player);
     }
 }

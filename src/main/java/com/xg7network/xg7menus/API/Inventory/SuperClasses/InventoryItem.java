@@ -71,6 +71,10 @@ public class InventoryItem {
     public int getSlot() {
         return slot;
     }
+    public InventoryItem setSlot(int slot) {
+        this.slot = slot;
+        return this;
+    }
 
     public void execute() {
         this.runnable.run();
@@ -100,6 +104,13 @@ public class InventoryItem {
         meta.setDisplayName(TextUtil.get(meta.getDisplayName(), player));
         meta.setLore(meta.getLore().stream().map(l -> TextUtil.get(l, player)).collect(Collectors.toList()));
         this.itemStack.setItemMeta(meta);
+    }
+
+    public static ItemStack getFormattedItem(Material material, String name, List<String> lore, int amount) {
+        return new InventoryItem(material, name, lore, amount, 0, null).getItemStack();
+    }
+    public static ItemStack getFormattedItem(MaterialData material, String name, List<String> lore, int amount) {
+        return new InventoryItem(material, name, lore, amount, 0, null).getItemStack();
     }
 
 }
