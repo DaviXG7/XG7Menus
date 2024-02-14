@@ -1,13 +1,11 @@
 package com.xg7network.xg7menus.API.Inventory.Manager;
 
-import com.xg7network.xg7menus.API.Inventory.SuperClasses.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.Menu;
-import org.bukkit.World;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.w3c.dom.css.CSSStyleSheet;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuManager {
 
@@ -18,6 +16,15 @@ public class MenuManager {
         for (Menu menu : menus) {
 
             if (!inventories.contains(menu)) inventories.add(menu);
+
+        }
+
+    }
+    public static void unregister(Menu... menus) {
+
+        for (Menu menu : menus) {
+
+            if (inventories.contains(menu)) inventories.remove(menu);
 
         }
 

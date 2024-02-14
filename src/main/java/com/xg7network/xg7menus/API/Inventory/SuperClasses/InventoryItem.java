@@ -15,25 +15,41 @@ import java.util.stream.Collectors;
 
 public class InventoryItem {
 
-    protected int id;
+    protected String id;
     protected Player player;
     protected Menu inventory;
     protected Runnable runnable;
     protected int slot;
     protected ItemStack itemStack;
 
+    public InventoryItem(ItemStack itemStack, int slot, Runnable runnable) {
+
+        this.itemStack = itemStack;
+        this.slot = slot;
+        this.runnable = runnable;
+        this.id = UUID.randomUUID().toString();
+
+        NBTItem item = new NBTItem(this.itemStack);
+        item.setString("xg7mid", this.id);
+        this.itemStack = item.getItem();
+
+
+    }
+
     public InventoryItem(Material material, String name, List<String> lore, int amount, int slot, Runnable runnable) {
 
         ItemStack itemStack = new ItemStack(material, amount);
         this.slot = slot;
         this.runnable = runnable;
+        this.id = UUID.randomUUID().toString();
 
-        ItemMeta meta = this.itemStack.getItemMeta();
+        ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(TextUtil.get(name));
         meta.setLore(lore.stream().map(TextUtil::get).collect(Collectors.toList()));
+        itemStack.setItemMeta(meta);
 
         NBTItem item = new NBTItem(itemStack);
-        item.setString("xg7mid", UUID.randomUUID().toString());
+        item.setString("xg7mid", this.id);
         this.itemStack = item.getItem();
 
 
@@ -44,23 +60,28 @@ public class InventoryItem {
         ItemStack itemStack = materialData.toItemStack(amount);
         this.slot = slot;
         this.runnable = runnable;
+        this.id = UUID.randomUUID().toString();
 
-        ItemMeta meta = this.itemStack.getItemMeta();
+        ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(TextUtil.get(name));
         meta.setLore(lore.stream().map(TextUtil::get).collect(Collectors.toList()));
+        itemStack.setItemMeta(meta);
 
         NBTItem item = new NBTItem(itemStack);
-        item.setString("xg7mid", UUID.randomUUID().toString());
+        item.setString("xg7mid", this.id);
         this.itemStack = item.getItem();
 
 
     }
 
-    public void addEnchant(Enchantment enchantment, int level) {
-        this.itemStack.addEnchantment(enchantment, level);
+    public InventoryItem addEnchant(Enchantment enchantment, int level) {
+        ItemMeta meta = this.itemStack.getItemMeta();
+        meta.addEnchant(enchantment, level, true);
+        this.itemStack.setItemMeta(meta);
+        return this;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -71,13 +92,12 @@ public class InventoryItem {
     public int getSlot() {
         return slot;
     }
-    public InventoryItem setSlot(int slot) {
+    public void setSlot(int slot) {
         this.slot = slot;
-        return this;
     }
 
     public void execute() {
-        this.runnable.run();
+        if (this.runnable != null) this.runnable.run();
     }
     public void update(InventoryItem item) {
         this.itemStack = item.itemStack;
@@ -96,14 +116,38 @@ public class InventoryItem {
         meta.setLore(newLore.stream().map(TextUtil::get).collect(Collectors.toList()));
         this.itemStack.setItemMeta(meta);
     }
+    public void updateName(String newName) {
+        ItemMeta meta = this.itemStack.getItemMeta();
+        meta.setDisplayName(TextUtil.get(newName));
+        this.itemStack.setItemMeta(meta);
+    }
+    public void updateMaterial(Material newMaterial) {
+        this.itemStack.setType(newMaterial);
+    }
+    public void updateLore(List<String> newLore) {
+        ItemMeta meta = this.itemStack.getItemMeta();
+        meta.setLore(newLore.stream().map(TextUtil::get).collect(Collectors.toList()));
+        this.itemStack.setItemMeta(meta);
+    }
+    public void setRunnable(Runnable newRunable) {
+        this.runnable = newRunable;
+    }
+    public void updateNameAndLore(String newName, List<String> newLore) {
+
+        ItemMeta meta = this.itemStack.getItemMeta();
+        meta.setDisplayName(TextUtil.get(newName));
+        meta.setLore(newLore.stream().map(TextUtil::get).collect(Collectors.toList()));
+        this.itemStack.setItemMeta(meta);
+    }
 
     // For placeholders!!
-    public void setPlayer(Player player) {
+    public InventoryItem setPlayer(Player player) {
         this.player = player;
         ItemMeta meta = this.itemStack.getItemMeta();
         meta.setDisplayName(TextUtil.get(meta.getDisplayName(), player));
         meta.setLore(meta.getLore().stream().map(l -> TextUtil.get(l, player)).collect(Collectors.toList()));
         this.itemStack.setItemMeta(meta);
+        return this;
     }
 
     public static ItemStack getFormattedItem(Material material, String name, List<String> lore, int amount) {

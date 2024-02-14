@@ -1,5 +1,6 @@
 package com.xg7network.xg7menus.API.Inventory.SuperClasses;
 
+import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Inventory.MenuType;
 import com.xg7network.xg7menus.API.Utils.Text.TextUtil;
 import de.tr7zw.changeme.nbtapi.NBTItem;
@@ -9,11 +10,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
 
-    protected List<InventoryItem> items;
+    protected List<InventoryItem> items = new ArrayList<>();
     protected Inventory inventory;
     protected MenuType type;
 
@@ -23,7 +25,7 @@ public class Menu {
     }
     public Menu(MenuType type, String title, int size, Player player) {
         this.type = type;
-        this.inventory = Bukkit.createInventory(player, size, TextUtil.get(title));
+        this.inventory = Bukkit.createInventory(player, size, TextUtil.get(title, player));
     }
 
     public Inventory getInventory() {
@@ -57,13 +59,21 @@ public class Menu {
     }
 
     public InventoryItem getItem(ItemStack itemStack) {
-        return items.stream().filter(item -> new NBTItem(itemStack).getString("xg7mid").equals(item.getId())).findFirst().orElse(null);
+        if (itemStack != null) {
+            for (InventoryItem item : items) {
+                if (new NBTItem(itemStack).getString("xg7mid").equals(item.getId())) {
+                    return item;
+                }
+            }
+        }
+        return null;
     }
     public InventoryItem getItem(int slot) {
         return items.stream().filter(item -> item.getSlot() == slot).findFirst().orElse(null);
     }
 
     public void open(Player player) {
+        MenuManager.register(this);
         player.openInventory(inventory);
     }
 

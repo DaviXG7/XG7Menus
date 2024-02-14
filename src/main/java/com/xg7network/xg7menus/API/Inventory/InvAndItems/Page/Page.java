@@ -1,5 +1,6 @@
 package com.xg7network.xg7menus.API.Inventory.InvAndItems.Page;
 
+
 import com.xg7network.xg7menus.API.Inventory.MenuType;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.Menu;
@@ -14,28 +15,26 @@ public class Page extends Menu {
     private int index;
 
     public Page(String title, PagesMenu menu, int index) {
-        super(MenuType.PAGE, title.replace("%page%", index + ""), 54);
+        super(MenuType.PAGE, title.replace("%page%", index + 1 + ""), 54);
         this.menu = menu;
         this.index = index;
     }
 
     public Page(String title, Player player, PagesMenu menu, int index) {
-        super(MenuType.PAGE, title.replace("%page%", index + ""), 54, player);
+        super(MenuType.PAGE, title.replace("%page%", index + 1 + ""), 54, player);
         this.menu = menu;
         this.index = index;
     }
 
-    public List<ItemStack> addItems(List<ItemStack> items) {
+    public List<ItemStack> addListOfItems(List<ItemStack> items) {
 
         List<ItemStack> itemStackList = items;
 
         for (int i = 0; i < 45; i++) {
             if (!itemStackList.isEmpty()) {
-                this.inventory.setItem(i, itemStackList.get(0));
+                addItems(new InventoryItem(itemStackList.get(0), i, null));
                 itemStackList.remove(0);
-            } else {
-                return null;
-            }
+            } else break;
 
         }
         return itemStackList;
