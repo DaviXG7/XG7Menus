@@ -31,6 +31,11 @@ public class ActionInventoryItem extends InventoryItem {
     public Action getAction() {
         return action;
     }
+
+    public void setRunnable(Runnable runnable) {
+        this.runnable = runnable;
+    }
+
     public Action getSecundaryAction() {
         return secundaryAction;
     }
