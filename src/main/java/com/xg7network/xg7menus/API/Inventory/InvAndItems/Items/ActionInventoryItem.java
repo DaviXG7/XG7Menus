@@ -32,10 +32,6 @@ public class ActionInventoryItem extends InventoryItem {
         return action;
     }
 
-    public void setRunnable(Runnable runnable) {
-        this.runnable = runnable;
-    }
-
     public Action getSecundaryAction() {
         return secundaryAction;
     }
