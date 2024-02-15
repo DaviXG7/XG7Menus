@@ -59,11 +59,10 @@ public class Menu {
     }
 
     public InventoryItem getItem(ItemStack itemStack) {
-        if (itemStack != null) {
-            for (InventoryItem item : items) {
-                if (new NBTItem(itemStack).getString("xg7mid").equals(item.getId())) {
-                    return item;
-                }
+        if (itemStack == null) return null;
+        for (InventoryItem item : items) {
+            if (new NBTItem(itemStack).getString("xg7mid").equals(item.getId())) {
+                return item;
             }
         }
         return null;

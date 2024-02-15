@@ -15,6 +15,9 @@ import java.util.Arrays;
 public class PlayerSelector extends Menu {
 
     private ItemStack[] playerItemsStack;
+    private boolean breakBlocks = true;
+    private boolean placeBlocks = true;
+    private boolean dropItems = false;
 
     public PlayerSelector() {
         super(MenuType.PLAYERSELECTOR, "", 9);
@@ -46,14 +49,32 @@ public class PlayerSelector extends Menu {
     }
 
     public void removeItems(@NotNull Player player) {
-        for (int i = 0 ; i < player.getInventory().getSize(); i++) {
-            if (player.getInventory().getItem(i) != null) {
-                InventoryItem inventoryItem = this.getItem(player.getInventory().getItem(i));
-                if (inventoryItem != null) player.getInventory().getItem(i).setType(Material.AIR);
-            }
-
-        }
+        player.getInventory().clear();
         this.inventory = null;
         MenuManager.unregister(this);
+    }
+
+    public boolean canBreakBlocks() {
+        return breakBlocks;
+    }
+
+    public void setBreakBlocks(boolean breakBlocks) {
+        this.breakBlocks = breakBlocks;
+    }
+
+    public boolean canPlaceBlocks() {
+        return placeBlocks;
+    }
+
+    public void setPlaceBlocks(boolean placeBlocks) {
+        this.placeBlocks = placeBlocks;
+    }
+
+    public boolean canDropItems() {
+        return dropItems;
+    }
+
+    public void setDropItems(boolean dropItems) {
+        this.dropItems = dropItems;
     }
 }
