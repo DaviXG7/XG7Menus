@@ -11,6 +11,7 @@ import java.util.List;
 
 public class ActionInventoryItem extends InventoryItem {
     private Action action;
+    private Action secundaryAction;
     private Location locationClicked;
     public ActionInventoryItem(ItemStack itemStack, int slot, Runnable runnable, Action actionToUse) {
         super(itemStack, slot, runnable);
@@ -29,6 +30,12 @@ public class ActionInventoryItem extends InventoryItem {
 
     public Action getAction() {
         return action;
+    }
+    public Action getSecundaryAction() {
+        return secundaryAction;
+    }
+    public void setSecundaryAction(Action secundaryAction) {
+        this.secundaryAction = secundaryAction;
     }
 
     public Location getLocationClicked() {
