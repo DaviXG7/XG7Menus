@@ -1,4 +1,4 @@
-package com.xg7network.xg7menus.API.Inventory.InvAndItems;
+package com.xg7network.xg7menus.API.Inventory.InvAndItems.Items;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

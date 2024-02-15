@@ -1,11 +1,10 @@
 package com.xg7network.xg7menus;
 
-import com.xg7network.xg7menus.API.Inventory.InvAndItems.PlayerSelector;
+import com.xg7network.xg7menus.API.Inventory.InvAndItems.Menus.PlayerSelector;
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.InventoryItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;

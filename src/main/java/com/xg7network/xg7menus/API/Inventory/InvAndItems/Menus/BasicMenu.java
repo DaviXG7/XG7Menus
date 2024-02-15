@@ -1,4 +1,4 @@
-package com.xg7network.xg7menus.API.Inventory.InvAndItems;
+package com.xg7network.xg7menus.API.Inventory.InvAndItems.Menus;
 
 import com.xg7network.xg7menus.API.Inventory.MenuType;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.Menu;

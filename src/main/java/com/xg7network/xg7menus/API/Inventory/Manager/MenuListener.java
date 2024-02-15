@@ -1,7 +1,7 @@
 package com.xg7network.xg7menus.API.Inventory.Manager;
 
-import com.xg7network.xg7menus.API.Inventory.InvAndItems.ActionInventoryItem;
-import com.xg7network.xg7menus.API.Inventory.InvAndItems.PlayerSelector;
+import com.xg7network.xg7menus.API.Inventory.InvAndItems.Items.ActionInventoryItem;
+import com.xg7network.xg7menus.API.Inventory.InvAndItems.Menus.PlayerSelector;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.Menu;
 import org.bukkit.entity.Player;
@@ -52,6 +52,7 @@ public class MenuListener implements Listener {
         if (inventoryItem instanceof ActionInventoryItem) {
             ActionInventoryItem actionInventoryItem = (ActionInventoryItem) inventoryItem;
             if (event.getAction().equals(actionInventoryItem.getAction())) {
+                actionInventoryItem.setLocationClicked(event.getClickedBlock().getLocation());
                 actionInventoryItem.execute();
                 return;
             }

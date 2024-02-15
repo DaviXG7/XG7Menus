@@ -1,6 +1,7 @@
-package com.xg7network.xg7menus.API.Inventory.InvAndItems;
+package com.xg7network.xg7menus.API.Inventory.InvAndItems.Items;
 
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.InventoryItem;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
@@ -10,6 +11,7 @@ import java.util.List;
 
 public class ActionInventoryItem extends InventoryItem {
     private Action action;
+    private Location locationClicked;
     public ActionInventoryItem(ItemStack itemStack, int slot, Runnable runnable, Action actionToUse) {
         super(itemStack, slot, runnable);
         this.action = actionToUse;
@@ -27,5 +29,13 @@ public class ActionInventoryItem extends InventoryItem {
 
     public Action getAction() {
         return action;
+    }
+
+    public Location getLocationClicked() {
+        return locationClicked;
+    }
+
+    public void setLocationClicked(Location locationClicked) {
+        this.locationClicked = locationClicked;
     }
 }

@@ -1,11 +1,9 @@
-package com.xg7network.xg7menus.API.Inventory.InvAndItems;
+package com.xg7network.xg7menus.API.Inventory.InvAndItems.Menus;
 
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Inventory.MenuType;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.Menu;
-import de.tr7zw.changeme.nbtapi.NBTItem;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
