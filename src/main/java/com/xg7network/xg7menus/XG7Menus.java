@@ -1,16 +1,37 @@
 package com.xg7network.xg7menus;
 
+import com.xg7network.xg7menus.API.Inventory.InvAndItems.PlayerSelector;
+import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
+import com.xg7network.xg7menus.API.Inventory.SuperClasses.InventoryItem;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class XG7Menus extends JavaPlugin {
+import java.util.ArrayList;
+
+public final class XG7Menus extends JavaPlugin implements Listener {
 
     public static boolean placeholderapi = false;
+    private static PlayerSelector selector;
 
     @Override
     public void onEnable() {
 
         placeholderapi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
+
+        MenuManager.inicialize(this);
+
+        selector = new PlayerSelector();
+        selector.addItems(new InventoryItem(Material.CHEST, "Test", new ArrayList<>(), 1, 0, () -> {
+            Bukkit.broadcastMessage("testeeeee");
+        }));
+
+        this.getServer().getPluginManager().registerEvents(this, this);
 
         // Plugin startup logic
 
@@ -19,5 +40,14 @@ public final class XG7Menus extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        selector.open(event.getPlayer());
+    }
+    @EventHandler
+    public void onSneak(PlayerToggleSneakEvent event) {
+        selector.removeItems(event.getPlayer());
     }
 }
