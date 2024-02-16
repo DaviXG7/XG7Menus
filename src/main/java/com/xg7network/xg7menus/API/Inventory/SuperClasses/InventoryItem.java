@@ -145,7 +145,7 @@ public class InventoryItem {
         this.player = player;
         ItemMeta meta = this.itemStack.getItemMeta();
         meta.setDisplayName(TextUtil.get(meta.getDisplayName(), player));
-        meta.setLore(meta.getLore().stream().map(l -> TextUtil.get(l, player)).collect(Collectors.toList()));
+        if (meta.getLore() != null)  meta.setLore(meta.getLore().stream().map(l -> TextUtil.get(l, player)).collect(Collectors.toList()));
         this.itemStack.setItemMeta(meta);
         return this;
     }

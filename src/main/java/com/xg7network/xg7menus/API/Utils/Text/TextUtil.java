@@ -28,7 +28,7 @@ public class TextUtil {
         if (placeholderapi) {
             text = PlaceholderAPI.setPlaceholders(player, text);
 
-            text = com.xg7network.xg7lobby.Utils.Text.Color.translateHexColor(text);
+            text = Color.translateHexColor(text);
 
         }
         return text.replace("&", "§");
@@ -37,7 +37,7 @@ public class TextUtil {
 
     public static String get(String text) {
 
-        text = com.xg7network.xg7lobby.Utils.Text.Color.translateHexColor(text);
+        text = Color.translateHexColor(text);
 
         return text.replace("&", "§");
 

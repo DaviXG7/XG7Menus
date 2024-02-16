@@ -32,8 +32,9 @@ public final class XG7Menus extends JavaPlugin implements Listener {
         selector = new PlayerSelector();
         selector.addItems(
                 new InventoryItem(Material.CHEST, "Test", new ArrayList<>(), 1, 0, () -> {
-            Bukkit.broadcastMessage("testeeeee");
-        })
+            Bukkit.broadcastMessage("testeeeee");}
+                ),
+                inventoryItem
 
         );
 

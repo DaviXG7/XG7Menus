@@ -60,7 +60,7 @@ public class Menu {
     }
 
     public InventoryItem getItem(ItemStack itemStack) {
-        if (itemStack == null) return null;
+        if (itemStack == null || itemStack.getType() == Material.AIR) return null;
         for (InventoryItem item : items) {
             if (new NBTItem(itemStack).getString("xg7mid").equals(item.getId())) {
                 return item;

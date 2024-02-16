@@ -32,7 +32,7 @@ public class MenuListener implements Listener {
                 return;
 
             case PLAYERSELECTOR:
-                if (event.getRawSlot() > 9) {
+                if (event.getRawSlot() <= 35) {
                     InventoryItem inventoryItem1 = menu.getItem(event.getCurrentItem());
                     if (inventoryItem1 == null) return;
                     inventoryItem1.execute();
@@ -43,30 +43,29 @@ public class MenuListener implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
-        if (event.getAction() != Action.LEFT_CLICK_AIR || event.getAction() != Action.LEFT_CLICK_BLOCK || event.getAction() != Action.RIGHT_CLICK_AIR || event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+        if (event.getAction() != Action.LEFT_CLICK_AIR && event.getAction() != Action.LEFT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         Menu menu = MenuManager.contains(event.getPlayer().getInventory());
         if (menu == null) return;
         InventoryItem inventoryItem = menu.getItem(event.getPlayer().getItemInHand());
         if (inventoryItem == null) return;
-        event.setCancelled(true);
         if (inventoryItem instanceof ActionInventoryItem) {
             ActionInventoryItem actionInventoryItem = (ActionInventoryItem) inventoryItem;
             if (event.getAction().equals(actionInventoryItem.getAction())) {
                 actionInventoryItem.setPlayer(event.getPlayer());
                 actionInventoryItem.setLocationClicked(event.getClickedBlock().getLocation());
                 actionInventoryItem.execute();
-                return;
             }
             if (actionInventoryItem.getSecundaryAction() != null) {
                 if (event.getAction().equals(actionInventoryItem.getSecundaryAction())) {
                     actionInventoryItem.setPlayer(event.getPlayer());
                     actionInventoryItem.setLocationClicked(event.getClickedBlock().getLocation());
                     actionInventoryItem.execute();
-                    return;
                 }
             }
+            return;
         }
         inventoryItem.execute();
+        event.setCancelled(true);
     }
 
     @EventHandler
@@ -84,20 +83,24 @@ public class MenuListener implements Listener {
         Menu menu = MenuManager.contains(player.getInventory());
         if (menu == null) return;
         event.setCancelled(!((PlayerSelector) menu).canBreakBlocks());
+        InventoryItem inventoryItem = menu.getItem(event.getPlayer().getItemInHand());
+        event.setCancelled(!((PlayerSelector) menu).canBreakBlocks() || inventoryItem != null);
     }
     @EventHandler
     public void onPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         Menu menu = MenuManager.contains(player.getInventory());
         if (menu == null) return;
-        event.setCancelled(!((PlayerSelector) menu).canPlaceBlocks());
+        InventoryItem inventoryItem = menu.getItem(event.getPlayer().getItemInHand());
+        event.setCancelled(!((PlayerSelector) menu).canPlaceBlocks() || inventoryItem != null);
     }
     @EventHandler
     public void onDrop(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
         Menu menu = MenuManager.contains(player.getInventory());
         if (menu == null) return;
-        event.setCancelled(!((PlayerSelector) menu).canDropItems());
+        InventoryItem inventoryItem = menu.getItem(event.getPlayer().getItemInHand());
+        event.setCancelled(!((PlayerSelector) menu).canDropItems() || inventoryItem != null);
     }
 
 }

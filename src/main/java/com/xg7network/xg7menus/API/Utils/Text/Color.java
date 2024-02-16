@@ -1,4 +1,4 @@
-package com.xg7network.xg7lobby.Utils.Text;
+package com.xg7network.xg7menus.API.Utils.Text;
 
 /*
 
