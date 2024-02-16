@@ -3,6 +3,7 @@ package com.xg7network.xg7menus.API.Inventory.InvAndItems.Items;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.InventoryItem;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
@@ -45,5 +46,8 @@ public class ActionInventoryItem extends InventoryItem {
 
     public void setLocationClicked(Location locationClicked) {
         this.locationClicked = locationClicked;
+    }
+    public Player getPlayer() {
+        return player;
     }
 }
