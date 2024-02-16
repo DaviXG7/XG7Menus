@@ -4,6 +4,7 @@ package com.xg7network.xg7menus.API.Inventory.InvAndItems.Menus.Page;
 import com.xg7network.xg7menus.API.Inventory.MenuType;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.Menu;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -39,6 +40,20 @@ public class Page extends Menu {
         }
         return itemStackList;
 
+    }
+
+    @Override
+    public Menu addItems(InventoryItem... items) {
+        for (InventoryItem item : items) {
+            if (-1 < item.getSlot() && item.getSlot() <= 8) {
+                item.setSlot(item.getSlot() + 45);
+                this.inventory.setItem(item.getSlot(), item.getItemStack());
+                this.items.add(item);
+            } else {
+                Bukkit.getLogger().severe("Items of page inventory only sopports slots 0 to 8 in the bottom of the page, the list of items will be on top.");
+            }
+        }
+        return this;
     }
 
     public int getIndex() {

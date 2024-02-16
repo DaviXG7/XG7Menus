@@ -29,13 +29,8 @@ public class PagesMenu {
 
     public void addItem(InventoryItem item) {
 
-        if (-1 < item.getSlot() && item.getSlot() <=8) {
-            item.setSlot(item.getSlot() + 45);
-            for (Page page : pages) {
-                page.addItems(item);
-            }
-        } else {
-            Bukkit.getLogger().severe("Items of page inventory only sopports slots 0 to 8 in the bottom of the page, the list of items will be on top.");
+        for (Page page : pages) {
+            page.addItems(item);
         }
     }
 

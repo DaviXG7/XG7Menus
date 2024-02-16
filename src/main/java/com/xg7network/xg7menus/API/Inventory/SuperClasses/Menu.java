@@ -1,5 +1,6 @@
 package com.xg7network.xg7menus.API.Inventory.SuperClasses;
 
+import com.xg7network.xg7menus.API.Inventory.InvAndItems.Menus.Page.Page;
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Inventory.MenuType;
 import com.xg7network.xg7menus.API.Utils.Text.TextUtil;
@@ -79,4 +80,5 @@ public class Menu {
     public MenuType getType() {
         return this.type;
     }
+
 }
