@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
 
-import static com.xg7network.xg7menus.XG7Menus.placeholderapi;
+import static com.xg7network.xg7menus.API.Inventory.Manager.MenuManager.placeholderapi;
 
 public class TextUtil {
 

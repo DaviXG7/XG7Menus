@@ -17,13 +17,10 @@ import java.util.ArrayList;
 
 public final class XG7Menus extends JavaPlugin implements Listener {
 
-    public static boolean placeholderapi = false;
     private static PlayerSelector selector;
 
     @Override
     public void onEnable() {
-
-        placeholderapi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
 
         MenuManager.inicialize(this);
 
