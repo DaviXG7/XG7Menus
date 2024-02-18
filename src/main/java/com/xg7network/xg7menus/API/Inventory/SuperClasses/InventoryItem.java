@@ -107,7 +107,7 @@ public class InventoryItem {
         return itemStack;
     }
 
-    public void update(Material newMaterial, String newName, List<String> newLore, Runnable newRunable) {
+    public void update(Material newMaterial, String newName, List<String> newLore, Runnable newRunable, Menu menu) {
         this.itemStack.setType(newMaterial);
         this.runnable = newRunable;
 
@@ -115,29 +115,40 @@ public class InventoryItem {
         meta.setDisplayName(TextUtil.get(newName));
         meta.setLore(newLore.stream().map(TextUtil::get).collect(Collectors.toList()));
         this.itemStack.setItemMeta(meta);
+
+        menu.updateItem(this);
     }
-    public void updateName(String newName) {
+    public void updateName(String newName, Menu menu) {
         ItemMeta meta = this.itemStack.getItemMeta();
         meta.setDisplayName(TextUtil.get(newName));
         this.itemStack.setItemMeta(meta);
+
+        menu.updateItem(this);
     }
-    public void updateMaterial(Material newMaterial) {
+    public void updateMaterial(Material newMaterial, Menu menu) {
         this.itemStack.setType(newMaterial);
+        menu.updateItem(this);
     }
-    public void updateLore(List<String> newLore) {
+    public void updateMaterial(MaterialData newMaterial, Menu menu) {
+        this.itemStack.setData(newMaterial);
+        menu.updateItem(this);
+    }
+    public void updateLore(List<String> newLore, Menu menu) {
         ItemMeta meta = this.itemStack.getItemMeta();
         meta.setLore(newLore.stream().map(TextUtil::get).collect(Collectors.toList()));
         this.itemStack.setItemMeta(meta);
+        menu.updateItem(this);
     }
     public void setRunnable(Runnable newRunable) {
         this.runnable = newRunable;
     }
-    public void updateNameAndLore(String newName, List<String> newLore) {
+    public void updateNameAndLore(String newName, List<String> newLore, Menu menu) {
 
         ItemMeta meta = this.itemStack.getItemMeta();
         meta.setDisplayName(TextUtil.get(newName));
         meta.setLore(newLore.stream().map(TextUtil::get).collect(Collectors.toList()));
         this.itemStack.setItemMeta(meta);
+        menu.updateItem(this);
     }
 
     // For placeholders!!

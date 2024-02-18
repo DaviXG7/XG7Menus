@@ -58,6 +58,14 @@ public class Menu {
         }
         return this;
     }
+    public Menu updateItem(InventoryItem item) {
+        for (InventoryItem items : this.items) {
+            this.inventory.setItem(item.getSlot(), item.getItemStack());
+            this.items.remove(items);
+            this.items.add(item);
+        }
+        return this;
+    }
 
     public InventoryItem getItem(ItemStack itemStack) {
         if (itemStack == null || itemStack.getType() == Material.AIR) return null;
