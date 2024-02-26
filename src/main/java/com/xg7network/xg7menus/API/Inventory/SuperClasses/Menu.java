@@ -59,11 +59,19 @@ public class Menu {
         return this;
     }
     public Menu updateItem(InventoryItem item) {
+        InventoryItem itemChose = null;
         for (InventoryItem items : this.items) {
-            this.inventory.setItem(item.getSlot(), item.getItemStack());
-            this.items.remove(items);
-            this.items.add(item);
+            if (items.getSlot() == item.getSlot()) {
+                itemChose = items;
+            }
         }
+        
+        if (itemChose == null) return this;
+
+        this.inventory.setItem(item.getSlot(), item.getItemStack());
+        this.items.remove(itemChose);
+        this.items.add(item);
+        
         return this;
     }
 
