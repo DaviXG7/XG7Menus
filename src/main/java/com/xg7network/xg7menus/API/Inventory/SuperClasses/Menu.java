@@ -51,6 +51,10 @@ public class Menu {
         return this;
     }
 
+    public List<InventoryItem> getItems() {
+        return items;
+    }
+
     public Menu addItems(InventoryItem... items) {
         for (InventoryItem item : items) {
             this.inventory.setItem(item.getSlot(), item.getItemStack());

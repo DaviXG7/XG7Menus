@@ -2,12 +2,14 @@ package com.xg7network.xg7menus.API.Inventory.InvAndItems.Items;
 
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.ActionRunnable;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.InventoryItem;
+import com.xg7network.xg7menus.API.Utils.Text.TextUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -15,6 +17,10 @@ public class ActionInventoryItem extends InventoryItem {
     private Action action;
     private Action secundaryAction;
     private ActionRunnable actionRunnable;
+    private long cooldown;
+    private long currentCooldown;
+    private String cooldownMessage;
+
     public ActionInventoryItem(ItemStack itemStack, int slot, ActionRunnable runnable, Action actionToUse) {
         super(itemStack, slot, null);
         this.actionRunnable = runnable;
@@ -37,6 +43,13 @@ public class ActionInventoryItem extends InventoryItem {
         return action;
     }
 
+    public void setCooldown(int cooldown) {
+        this.cooldown = cooldown;
+    }
+    public void setCooldownMessage(String message) {
+        this.cooldownMessage = cooldownMessage;
+    }
+
     public Action getSecundaryAction() {
         return secundaryAction;
     }
@@ -45,6 +58,15 @@ public class ActionInventoryItem extends InventoryItem {
     }
 
     public void execute(Location location) {
+        if (currentCooldown >= System.currentTimeMillis()){
+            TextUtil.send(cooldownMessage.replace("SECONDS", (currentCooldown - System.currentTimeMillis()) / 1000 + ""), player);
+            return;
+        }
+
+        if (cooldown != 0L) {
+            currentCooldown = System.currentTimeMillis() + cooldown;
+        }
+
         this.actionRunnable.run(location, this);
     }
     public Player getPlayer() {

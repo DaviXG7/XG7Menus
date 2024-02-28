@@ -37,7 +37,7 @@ public class MenuManager {
         placeholderapi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
     }
 
-    protected static Menu contains(Inventory inventory) {
+    public static Menu getMenuByInventory(Inventory inventory) {
         for (Menu menu : inventories) {
             if (menu.getInventory().equals(inventory)) {
                 return menu;
