@@ -55,7 +55,7 @@ public class ActionInventoryItem extends InventoryItem {
         this.cooldown = cooldown;
     }
     public void setCooldownMessage(String message) {
-        this.cooldownMessage = cooldownMessage;
+        this.cooldownMessage = message;
     }
 
     public Action getSecundaryAction() {
@@ -66,13 +66,14 @@ public class ActionInventoryItem extends InventoryItem {
     }
 
     public void execute(Location location) {
-        if (currentCooldown >= System.currentTimeMillis()){
-            TextUtil.send(cooldownMessage.replace("SECONDS", (currentCooldown - System.currentTimeMillis()) / 1000 + ""), player);
+
+        if (currentCooldown > System.currentTimeMillis()) {
+            if (cooldownMessage != null) TextUtil.send(cooldownMessage.replace("SECONDS", (currentCooldown - System.currentTimeMillis()) / 1000 + ""), player);
             return;
         }
 
         if (cooldown != 0L) {
-            currentCooldown = System.currentTimeMillis() + cooldown;
+            this.currentCooldown = System.currentTimeMillis() + cooldown;
         }
 
         this.actionRunnable.run(location, this);

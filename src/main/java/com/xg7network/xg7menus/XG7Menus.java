@@ -28,20 +28,16 @@ public final class XG7Menus extends JavaPlugin implements Listener {
         MenuManager.inicialize(this);
 
         selector = new PlayerSelector();
+        ActionInventoryItem actionInventoryItem = new ActionInventoryItem(Material.STICK, "Test2", new ArrayList<>(), 1, 1, (location, item) -> {
+            if (location != null) {
+                item.getPlayer().sendMessage(location.toString());
+            }
+        }, Action.RIGHT_CLICK_BLOCK);
+        actionInventoryItem.setCooldown(2000);
+        actionInventoryItem.setCooldownMessage("aaaaaa");
         selector.addItems(
                 new InventoryItem(Material.CHEST, "Test", new ArrayList<>(), 1, 0, () -> Bukkit.broadcastMessage("testeeeee")),
-                new ActionInventoryItem(Material.STICK, "Test2", new ArrayList<>(), 1, 1, new ActionRunnable() {
-
-                    @Override
-                    public void run(Location location, ActionInventoryItem item) {
-                        if (location != null) {
-                            item.getPlayer().sendMessage(location.toString());
-                        }
-                    }
-
-                }, Action.RIGHT_CLICK_BLOCK),
-
-                new SkullInventoryItem("teste3", new ArrayList<>(), 1, 1, )
+                actionInventoryItem
 
         );
 
@@ -58,6 +54,9 @@ public final class XG7Menus extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
+        selector.addItems(
+                new SkullInventoryItem("teste3", new ArrayList<>(), 1, 2, null, event.getPlayer())
+        );
         selector.open(event.getPlayer());
     }
     @EventHandler

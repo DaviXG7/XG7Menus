@@ -33,18 +33,11 @@ public class MenuListener implements Listener {
         switch (menu.getType()) {
             case BASIC:
             case PAGE:
+            case PLAYERSELECTOR:
 
                 InventoryItem inventoryItem = menu.getItem(event.getCurrentItem());
                 if (inventoryItem == null) return;
                 inventoryItem.execute();
-                return;
-
-            case PLAYERSELECTOR:
-                if (event.getRawSlot() <= 35) {
-                    InventoryItem inventoryItem1 = menu.getItem(event.getCurrentItem());
-                    if (inventoryItem1 == null) return;
-                    inventoryItem1.execute();
-                }
         }
 
     }

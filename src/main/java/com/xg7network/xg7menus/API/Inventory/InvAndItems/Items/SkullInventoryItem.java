@@ -57,17 +57,14 @@ public class SkullInventoryItem extends InventoryItem {
                 .contains("PLAYER_HEAD");
 
 
-        ItemStack cabeca = skull ? new ItemStack(Material.getMaterial("PLAYER_HEAD")) : new ItemStack(Material.getMaterial("SKULL_ITEM"), 1, (short) 0, (byte) 3);
+        SkullMeta skullMeta = (SkullMeta) this.itemStack.getItemMeta();
 
-        SkullMeta skullMeta = (SkullMeta) cabeca.getItemMeta();
+        if (skull) skullMeta.setOwningPlayer(owner);
+        else skullMeta.setOwner(owner.getName());
 
-        try {
-            skullMeta.setOwningPlayer(owner);
-        } catch (Exception ignored) {
-            skullMeta.setOwner(owner.getName());
-        }
 
-        cabeca.setItemMeta(skullMeta);
+
+        this.itemStack.setItemMeta(skullMeta);
 
     }
 
