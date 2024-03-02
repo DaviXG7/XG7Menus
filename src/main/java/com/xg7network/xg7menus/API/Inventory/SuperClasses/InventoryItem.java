@@ -80,7 +80,6 @@ public class InventoryItem {
         this.itemStack.setItemMeta(meta);
         return this;
     }
-
     public String getId() {
         return id;
     }
@@ -117,6 +116,9 @@ public class InventoryItem {
         this.itemStack.setItemMeta(meta);
 
         menu.updateItem(this);
+    }
+    public void updateRunnable(Runnable newRunnable) {
+        this.runnable = newRunnable;
     }
     public void updateName(String newName, Menu menu) {
         ItemMeta meta = this.itemStack.getItemMeta();

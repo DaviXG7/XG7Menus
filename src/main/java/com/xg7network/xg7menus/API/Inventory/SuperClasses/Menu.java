@@ -35,7 +35,7 @@ public class Menu {
 
     public Menu setFillItem(ItemStack item) {
         for (int i = 0; i < this.inventory.getSize(); i++) {
-            if (!this.inventory.getItem(i).getType().equals(Material.AIR)) {
+            if (this.inventory.getItem(i) == null) {
                 this.inventory.setItem(i, item);
             }
         }
@@ -44,7 +44,7 @@ public class Menu {
 
     public Menu setFillItem(InventoryItem item) {
         for (int i = 0; i < this.inventory.getSize(); i++) {
-            if (!this.inventory.getItem(i).getType().equals(Material.AIR)) {
+            if (this.inventory.getItem(i) == null) {
                 this.inventory.setItem(i, item.getItemStack());
             }
         }
@@ -57,6 +57,7 @@ public class Menu {
 
     public Menu addItems(InventoryItem... items) {
         for (InventoryItem item : items) {
+            if (item.getSlot() < 0) continue;
             this.inventory.setItem(item.getSlot(), item.getItemStack());
             this.items.add(item);
         }

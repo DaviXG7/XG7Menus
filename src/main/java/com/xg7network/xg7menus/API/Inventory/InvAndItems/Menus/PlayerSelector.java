@@ -37,6 +37,7 @@ public class PlayerSelector extends Menu {
         player.getInventory().clear();
 
         for (InventoryItem inventoryItem : this.items) {
+            if (inventoryItem.getSlot() < 0) continue;
             player.getInventory().setItem(inventoryItem.getSlot(), inventoryItem.getItemStack());
         }
 

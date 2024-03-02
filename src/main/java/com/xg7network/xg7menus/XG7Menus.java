@@ -1,6 +1,7 @@
 package com.xg7network.xg7menus;
 
 import com.xg7network.xg7menus.API.Inventory.InvAndItems.Items.ActionInventoryItem;
+import com.xg7network.xg7menus.API.Inventory.InvAndItems.Items.SkullInventoryItem;
 import com.xg7network.xg7menus.API.Inventory.InvAndItems.Menus.PlayerSelector;
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.ActionRunnable;
@@ -33,10 +34,14 @@ public final class XG7Menus extends JavaPlugin implements Listener {
 
                     @Override
                     public void run(Location location, ActionInventoryItem item) {
-                        item.getPlayer().sendMessage(location.toString());
+                        if (location != null) {
+                            item.getPlayer().sendMessage(location.toString());
+                        }
                     }
 
-                }, Action.RIGHT_CLICK_BLOCK)
+                }, Action.RIGHT_CLICK_BLOCK),
+
+                new SkullInventoryItem("teste3", new ArrayList<>(), 1, 1, )
 
         );
 

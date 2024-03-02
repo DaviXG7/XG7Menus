@@ -60,12 +60,12 @@ public class MenuListener implements Listener {
             ActionInventoryItem actionInventoryItem = (ActionInventoryItem) inventoryItem;
             if (event.getAction().equals(actionInventoryItem.getAction())) {
                 actionInventoryItem.setPlayer(event.getPlayer());
-                actionInventoryItem.execute(event.getClickedBlock().getLocation());
+                actionInventoryItem.execute(event.getClickedBlock() != null ? event.getClickedBlock().getLocation() : null);
             }
             if (actionInventoryItem.getSecundaryAction() != null) {
                 if (event.getAction().equals(actionInventoryItem.getSecundaryAction())) {
                     actionInventoryItem.setPlayer(event.getPlayer());
-                    actionInventoryItem.execute(event.getClickedBlock().getLocation());
+                    actionInventoryItem.execute(event.getClickedBlock() != null ? event.getClickedBlock().getLocation() : null);
                 }
             }
             return;

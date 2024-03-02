@@ -39,8 +39,16 @@ public class ActionInventoryItem extends InventoryItem {
         this.action = actionToUse;
     }
 
+    public void updateRunnable(ActionRunnable runnable) {
+        this.actionRunnable = runnable;
+    }
+
     public Action getAction() {
         return action;
+    }
+
+    public ActionRunnable getActionRunnable() {
+        return actionRunnable;
     }
 
     public void setCooldown(int cooldown) {
