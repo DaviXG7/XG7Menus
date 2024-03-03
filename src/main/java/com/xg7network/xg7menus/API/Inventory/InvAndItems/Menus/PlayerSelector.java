@@ -18,6 +18,7 @@ public class PlayerSelector extends Menu {
     private boolean breakBlocks = true;
     private boolean placeBlocks = true;
     private boolean dropItems = false;
+    private boolean cancelEvents = false;
 
     public PlayerSelector() {
         super(MenuType.PLAYERSELECTOR, "", 9);
@@ -77,5 +78,13 @@ public class PlayerSelector extends Menu {
 
     public void setDropItems(boolean dropItems) {
         this.dropItems = dropItems;
+    }
+
+    public boolean isCancelEvents() {
+        return cancelEvents;
+    }
+
+    public void setCancelEvents(boolean cancelEvents) {
+        this.cancelEvents = cancelEvents;
     }
 }

@@ -23,8 +23,6 @@ import java.util.concurrent.TimeUnit;
 
 public class MenuListener implements Listener {
 
-    private final HashMap<UUID, Long> cooldown = new HashMap<>();
-
     @EventHandler
     public void onClick(InventoryClickEvent event) {
         Menu menu = MenuManager.getMenuByInventory(event.getClickedInventory());
@@ -81,6 +79,7 @@ public class MenuListener implements Listener {
         Player player = event.getPlayer();
         Menu menu = MenuManager.getMenuByInventory(player.getInventory());
         if (menu == null) return;
+        if (((PlayerSelector) menu).isCancelEvents()) return;
         event.setCancelled(!((PlayerSelector) menu).canBreakBlocks());
         InventoryItem inventoryItem = menu.getItem(event.getPlayer().getItemInHand());
         event.setCancelled(!((PlayerSelector) menu).canBreakBlocks() || inventoryItem != null);
@@ -90,6 +89,7 @@ public class MenuListener implements Listener {
         Player player = event.getPlayer();
         Menu menu = MenuManager.getMenuByInventory(player.getInventory());
         if (menu == null) return;
+        if (((PlayerSelector) menu).isCancelEvents()) return;
         InventoryItem inventoryItem = menu.getItem(event.getPlayer().getItemInHand());
         event.setCancelled(!((PlayerSelector) menu).canPlaceBlocks() || inventoryItem != null);
     }
@@ -98,6 +98,7 @@ public class MenuListener implements Listener {
         Player player = event.getPlayer();
         Menu menu = MenuManager.getMenuByInventory(player.getInventory());
         if (menu == null) return;
+        if (((PlayerSelector) menu).isCancelEvents()) return;
         InventoryItem inventoryItem = menu.getItem(event.getPlayer().getItemInHand());
         event.setCancelled(!((PlayerSelector) menu).canDropItems() || inventoryItem != null);
     }

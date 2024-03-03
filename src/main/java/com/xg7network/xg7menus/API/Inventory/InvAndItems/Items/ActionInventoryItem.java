@@ -17,9 +17,9 @@ public class ActionInventoryItem extends InventoryItem {
     private Action action;
     private Action secundaryAction;
     private ActionRunnable actionRunnable;
-    private long cooldown;
-    private long currentCooldown;
-    private String cooldownMessage;
+    protected long cooldown;
+    protected long currentCooldown;
+    protected String cooldownMessage;
 
     public ActionInventoryItem(ItemStack itemStack, int slot, ActionRunnable runnable, Action actionToUse) {
         super(itemStack, slot, null);
@@ -54,10 +54,18 @@ public class ActionInventoryItem extends InventoryItem {
     public void setCooldown(int cooldown) {
         this.cooldown = cooldown;
     }
+
+    public long getCurrentCooldown() {
+        return currentCooldown;
+    }
+
+    public void setCurrentCooldown(long currentCooldown) {
+        this.currentCooldown = currentCooldown;
+    }
+
     public void setCooldownMessage(String message) {
         this.cooldownMessage = message;
     }
-
     public Action getSecundaryAction() {
         return secundaryAction;
     }
