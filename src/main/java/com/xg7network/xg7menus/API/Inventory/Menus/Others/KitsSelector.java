@@ -1,5 +1,6 @@
 package com.xg7network.xg7menus.API.Inventory.Menus.Others;
 
+import com.xg7network.xg7menus.API.Inventory.Items.Others.KitInventoryItem;
 import com.xg7network.xg7menus.API.Inventory.MenuType;
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
 import org.bukkit.entity.Player;
@@ -22,8 +23,8 @@ public class KitsSelector extends Menu {
         this.selector = selector;
     }
 
-    public void addKits(Kit... kits) {
-        for (Kit kit : kits) {
+    public void addKits(KitInventoryItem... kits) {
+        for (KitInventoryItem kit : kits) {
 
         }
     }

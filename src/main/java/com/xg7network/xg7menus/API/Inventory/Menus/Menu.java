@@ -18,7 +18,7 @@ public abstract class Menu {
 
     protected List<InventoryItem> items = new ArrayList<>();
     protected Inventory inventory;
-    protected MenuType type;
+    private MenuType type;
 
     public Menu(MenuType type, String title, int size) {
         this.type = type;
