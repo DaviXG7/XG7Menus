@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu {
+public abstract class Menu {
 
     protected List<InventoryItem> items = new ArrayList<>();
     protected Inventory inventory;

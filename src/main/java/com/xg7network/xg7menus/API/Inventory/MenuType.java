@@ -1,5 +1,5 @@
 package com.xg7network.xg7menus.API.Inventory;
 
 public enum MenuType {
-    BASIC,KIT,PAGE,PLAYERSELECTOR
+    BASIC,KIT,PAGE,PLAYERSELECTOR,KITITEMS
 }

@@ -4,8 +4,10 @@ import com.xg7network.xg7menus.API.Inventory.InvAndItems.Items.ActionInventoryIt
 import com.xg7network.xg7menus.API.Inventory.InvAndItems.Items.SkullInventoryItem;
 import com.xg7network.xg7menus.API.Inventory.InvAndItems.Menus.PlayerSelector;
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
+import com.xg7network.xg7menus.API.Inventory.MenuType;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.ActionRunnable;
 import com.xg7network.xg7menus.API.Inventory.SuperClasses.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.SuperClasses.Menu;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -33,8 +36,7 @@ public final class XG7Menus extends JavaPlugin implements Listener {
                 item.getPlayer().sendMessage(location.toString());
             }
         }, Action.RIGHT_CLICK_BLOCK);
-        actionInventoryItem.setCooldown(2000);
-        actionInventoryItem.setCooldownMessage("aaaaaa");
+
         selector.addItems(
                 new InventoryItem(Material.CHEST, "Test", new ArrayList<>(), 1, 0, () -> Bukkit.broadcastMessage("testeeeee")),
                 actionInventoryItem
