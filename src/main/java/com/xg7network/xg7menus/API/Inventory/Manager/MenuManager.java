@@ -1,6 +1,6 @@
 package com.xg7network.xg7menus.API.Inventory.Manager;
 
-import com.xg7network.xg7menus.API.Inventory.SuperClasses.Menu;
+import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;

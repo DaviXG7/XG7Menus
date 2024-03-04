@@ -1,11 +1,9 @@
 package com.xg7network.xg7menus.API.Inventory.Manager;
 
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
-import com.xg7network.xg7menus.API.Inventory.InvAndItems.Items.ActionInventoryItem;
-import com.xg7network.xg7menus.API.Inventory.InvAndItems.Menus.PlayerSelector;
-import com.xg7network.xg7menus.API.Inventory.SuperClasses.InventoryItem;
-import com.xg7network.xg7menus.API.Inventory.SuperClasses.Menu;
+import com.xg7network.xg7menus.API.Inventory.Items.Others.ActionInventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.Others.PlayerSelector;
+import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,10 +14,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-
-import java.util.HashMap;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 public class MenuListener implements Listener {
 

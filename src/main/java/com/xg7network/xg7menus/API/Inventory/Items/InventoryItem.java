@@ -1,5 +1,6 @@
-package com.xg7network.xg7menus.API.Inventory.SuperClasses;
+package com.xg7network.xg7menus.API.Inventory.Items;
 
+import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
 import com.xg7network.xg7menus.API.Utils.Text.TextUtil;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Material;

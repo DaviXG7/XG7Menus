@@ -1,7 +1,7 @@
-package com.xg7network.xg7menus.API.Inventory.InvAndItems.Menus;
+package com.xg7network.xg7menus.API.Inventory.Menus.Others;
 
 import com.xg7network.xg7menus.API.Inventory.MenuType;
-import com.xg7network.xg7menus.API.Inventory.SuperClasses.Menu;
+import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
 import org.bukkit.entity.Player;
 
 public class BasicMenu extends Menu {

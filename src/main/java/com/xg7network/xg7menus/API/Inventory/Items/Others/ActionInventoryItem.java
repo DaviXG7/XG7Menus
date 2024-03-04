@@ -1,7 +1,7 @@
-package com.xg7network.xg7menus.API.Inventory.InvAndItems.Items;
+package com.xg7network.xg7menus.API.Inventory.Items.Others;
 
-import com.xg7network.xg7menus.API.Inventory.SuperClasses.ActionRunnable;
-import com.xg7network.xg7menus.API.Inventory.SuperClasses.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Items.ActionRunnable;
+import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
 import com.xg7network.xg7menus.API.Utils.Text.TextUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
-import org.w3c.dom.Text;
 
 import java.util.List;
 

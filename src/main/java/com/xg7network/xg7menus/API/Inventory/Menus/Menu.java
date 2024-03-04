@@ -1,8 +1,8 @@
-package com.xg7network.xg7menus.API.Inventory.SuperClasses;
+package com.xg7network.xg7menus.API.Inventory.Menus;
 
-import com.xg7network.xg7menus.API.Inventory.InvAndItems.Menus.Page.Page;
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Inventory.MenuType;
+import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
 import com.xg7network.xg7menus.API.Utils.Text.TextUtil;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Bukkit;

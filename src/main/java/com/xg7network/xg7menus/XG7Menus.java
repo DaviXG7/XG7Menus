@@ -1,22 +1,17 @@
 package com.xg7network.xg7menus;
 
-import com.xg7network.xg7menus.API.Inventory.InvAndItems.Items.ActionInventoryItem;
-import com.xg7network.xg7menus.API.Inventory.InvAndItems.Items.SkullInventoryItem;
-import com.xg7network.xg7menus.API.Inventory.InvAndItems.Menus.PlayerSelector;
+import com.xg7network.xg7menus.API.Inventory.Items.Others.ActionInventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Items.Others.SkullInventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.Others.PlayerSelector;
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
-import com.xg7network.xg7menus.API.Inventory.MenuType;
-import com.xg7network.xg7menus.API.Inventory.SuperClasses.ActionRunnable;
-import com.xg7network.xg7menus.API.Inventory.SuperClasses.InventoryItem;
-import com.xg7network.xg7menus.API.Inventory.SuperClasses.Menu;
+import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;

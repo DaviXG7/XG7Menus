@@ -1,7 +1,6 @@
-package com.xg7network.xg7menus.API.Inventory.InvAndItems.Menus.Page;
+package com.xg7network.xg7menus.API.Inventory.Menus.Others.Page;
 
-import com.xg7network.xg7menus.API.Inventory.SuperClasses.InventoryItem;
-import org.bukkit.Bukkit;
+import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;

@@ -1,6 +1,6 @@
-package com.xg7network.xg7menus.API.Inventory.InvAndItems.Menus.Page;
+package com.xg7network.xg7menus.API.Inventory.Menus.Others.Page;
 
-import com.xg7network.xg7menus.API.Inventory.InvAndItems.Menus.BasicMenu;
+import com.xg7network.xg7menus.API.Inventory.Menus.Others.BasicMenu;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
