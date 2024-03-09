@@ -1,29 +1,29 @@
 package com.xg7network.xg7menus.API.Inventory.Menus.Others.Page;
 
-import com.xg7network.xg7menus.API.Inventory.Menus.Others.BasicMenu;
+import com.xg7network.xg7menus.API.Inventory.Menus.Others.StandardMenu;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
 public class InventoryPages {
 
-    private HashMap<String, BasicMenu> menus = new HashMap<>();
-    private BasicMenu inicialMenu;
+    private HashMap<String, StandardMenu> menus = new HashMap<>();
+    private StandardMenu inicialMenu;
 
     public InventoryPages(String initialMenuTitle, int initialMenuSize) {
-        this.inicialMenu = new BasicMenu(initialMenuTitle, initialMenuSize);
+        this.inicialMenu = new StandardMenu(initialMenuTitle, initialMenuSize);
     }
 
     public InventoryPages(String initialMenuTitle, int initialMenuSize, Player player) {
-        this.inicialMenu = new BasicMenu(initialMenuTitle, initialMenuSize, player);
+        this.inicialMenu = new StandardMenu(initialMenuTitle, initialMenuSize, player);
     }
 
-    public InventoryPages addMenu(String name, BasicMenu menu) {
+    public InventoryPages addPage(String name, StandardMenu menu) {
         menus.put(name, menu);
         return this;
     }
 
-    public BasicMenu getMenuByName(String name) {
+    public StandardMenu getPageByName(String name) {
         return menus.get(name);
     }
 
@@ -31,5 +31,7 @@ public class InventoryPages {
         menus.get(name).open(player);
     }
 
-
+    public StandardMenu getInicialMenu() {
+        return inicialMenu;
+    }
 }

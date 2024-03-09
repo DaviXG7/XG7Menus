@@ -33,24 +33,6 @@ public abstract class Menu {
         return inventory;
     }
 
-    public Menu setFillItem(ItemStack item) {
-        for (int i = 0; i < this.inventory.getSize(); i++) {
-            if (this.inventory.getItem(i) == null) {
-                this.inventory.setItem(i, item);
-            }
-        }
-        return this;
-    }
-
-    public Menu setFillItem(InventoryItem item) {
-        for (int i = 0; i < this.inventory.getSize(); i++) {
-            if (this.inventory.getItem(i) == null) {
-                this.inventory.setItem(i, item.getItemStack());
-            }
-        }
-        return this;
-    }
-
     public List<InventoryItem> getItems() {
         return items;
     }

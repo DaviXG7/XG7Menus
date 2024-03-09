@@ -83,7 +83,7 @@ public class ActionInventoryItem extends InventoryItem {
             this.currentCooldown = System.currentTimeMillis() + cooldown;
         }
 
-        this.actionRunnable.run(location, this);
+        this.actionRunnable.run(location, player);
     }
     public Player getPlayer() {
         return player;

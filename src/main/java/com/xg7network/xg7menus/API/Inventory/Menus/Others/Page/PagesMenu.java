@@ -55,6 +55,10 @@ public class PagesMenu {
         }
     }
 
+    public void open(Player player) {
+        pages.get(0).open(player);
+    }
+
     public List<Page> getPages() {
         return pages;
     }

@@ -23,11 +23,11 @@ public class MenuListener implements Listener {
         if (menu == null) return;
         event.setCancelled(true);
         switch (menu.getType()) {
-            case BASIC:
+            case STANDARD:
             case PAGE:
             case PLAYERSELECTOR:
 
-                InventoryItem inventoryItem = menu.getItem(event.getCurrentItem());
+                InventoryItem inventoryItem = menu.getItem(event.getSlot());
                 if (inventoryItem == null) return;
                 inventoryItem.execute();
         }

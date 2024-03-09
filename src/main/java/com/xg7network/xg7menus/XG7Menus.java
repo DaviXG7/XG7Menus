@@ -2,6 +2,9 @@ package com.xg7network.xg7menus;
 
 import com.xg7network.xg7menus.API.Inventory.Items.Others.ActionInventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Items.Others.SkullInventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.Others.ItemsInventory;
+import com.xg7network.xg7menus.API.Inventory.Menus.Others.Page.Page;
+import com.xg7network.xg7menus.API.Inventory.Menus.Others.Page.PagesMenu;
 import com.xg7network.xg7menus.API.Inventory.Menus.Others.PlayerSelector;
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
@@ -12,9 +15,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public final class XG7Menus extends JavaPlugin implements Listener {
 
@@ -26,9 +31,23 @@ public final class XG7Menus extends JavaPlugin implements Listener {
         MenuManager.inicialize(this);
 
         selector = new PlayerSelector();
-        ActionInventoryItem actionInventoryItem = new ActionInventoryItem(Material.STICK, "Test2", new ArrayList<>(), 1, 1, (location, item) -> {
+
+        List<ItemStack> itemStacks = new ArrayList<>();
+        itemStacks.add(new ItemStack(Material.PAPER));
+        itemStacks.add(new ItemStack(Material.PAPER));
+        itemStacks.add(new ItemStack(Material.PAPER));
+        itemStacks.add(new ItemStack(Material.PAPER));
+
+
+        PagesMenu menu = new PagesMenu(itemStacks, "a");
+
+        menu.addItem(new InventoryItem(Material.PAPER, "a", new ArrayList<>(), 1, 0, null));
+        menu.addItem(new InventoryItem(Material.PAPER, "a", new ArrayList<>(), 1, 8, null));
+
+        ActionInventoryItem actionInventoryItem = new ActionInventoryItem(Material.STICK, "Test2", new ArrayList<>(), 1, 1, (location, player) -> {
             if (location != null) {
-                item.getPlayer().sendMessage(location.toString());
+                player.sendMessage(location.toString());
+                menu.open(player);
             }
         }, Action.RIGHT_CLICK_BLOCK);
 

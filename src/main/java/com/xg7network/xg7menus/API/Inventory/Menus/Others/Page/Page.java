@@ -33,7 +33,9 @@ public class Page extends Menu {
 
         for (int i = 0; i < 45; i++) {
             if (!itemStackList.isEmpty()) {
-                addItems(new InventoryItem(itemStackList.get(0), i, null));
+                InventoryItem item = new InventoryItem(itemStackList.get(0), i, null);
+                this.inventory.setItem(item.getSlot(), item.getItemStack());
+                this.items.add(item);
                 itemStackList.remove(0);
             } else break;
 
@@ -51,6 +53,7 @@ public class Page extends Menu {
                 this.items.add(item);
             } else {
                 Bukkit.getLogger().severe("Items of page inventory only sopports slots 0 to 8 in the bottom of the page, the list of items will be on top.");
+                return this;
             }
         }
         return this;
