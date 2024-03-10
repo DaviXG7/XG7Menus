@@ -5,6 +5,7 @@ import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Items.ItemType;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -33,7 +34,7 @@ public class SkullInventoryItem extends InventoryItem {
                 ? new MaterialData(Material.getMaterial("PLAYER_HEAD")) : new MaterialData(Material.getMaterial("SKULL_ITEM"), (byte) 3),
                 name, lore, amount, slot, runnable);
 
-
+        this.type = ItemType.SKULL;
         setSkinValue(skinValue);
     }
 
@@ -41,6 +42,7 @@ public class SkullInventoryItem extends InventoryItem {
         super(Arrays.asList(Material.values()).stream().map(Material::name).collect(Collectors.toList()).contains("PLAYER_HEAD")
                         ? new MaterialData(Material.getMaterial("PLAYER_HEAD")) : new MaterialData(Material.getMaterial("SKULL_ITEM"), (byte) 3),
                 name, lore, amount, slot, runnable);
+        this.type = ItemType.SKULL;
         setSkin(player);
 
     }
@@ -49,6 +51,7 @@ public class SkullInventoryItem extends InventoryItem {
         super(Arrays.asList(Material.values()).stream().map(Material::name).collect(Collectors.toList()).contains("PLAYER_HEAD")
                         ? new MaterialData(Material.getMaterial("PLAYER_HEAD")) : new MaterialData(Material.getMaterial("SKULL_ITEM"), (byte) 3),
                 name, lore, amount, slot, runnable);
+        this.type = ItemType.SKULL;
         boolean skull = Arrays.asList(Material.values())
                 .stream()
                 .map(Material::name)

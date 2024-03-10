@@ -26,7 +26,6 @@ public class MenuListener implements Listener {
             case STANDARD:
             case PAGE:
             case PLAYERSELECTOR:
-
                 InventoryItem inventoryItem = menu.getItem(event.getSlot());
                 if (inventoryItem == null) return;
                 inventoryItem.execute();
@@ -36,27 +35,22 @@ public class MenuListener implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
-        if (event.getAction() != Action.LEFT_CLICK_AIR && event.getAction() != Action.LEFT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         Menu menu = MenuManager.getMenuByInventory(event.getPlayer().getInventory());
         if (menu == null) return;
+        event.setCancelled(true);
+
         InventoryItem inventoryItem = menu.getItem(event.getPlayer().getItemInHand());
         if (inventoryItem == null) return;
+
         if (inventoryItem instanceof ActionInventoryItem) {
             ActionInventoryItem actionInventoryItem = (ActionInventoryItem) inventoryItem;
-            if (event.getAction().equals(actionInventoryItem.getAction())) {
-                actionInventoryItem.setPlayer(event.getPlayer());
-                actionInventoryItem.execute(event.getClickedBlock() != null ? event.getClickedBlock().getLocation() : null);
-            }
-            if (actionInventoryItem.getSecundaryAction() != null) {
-                if (event.getAction().equals(actionInventoryItem.getSecundaryAction())) {
-                    actionInventoryItem.setPlayer(event.getPlayer());
-                    actionInventoryItem.execute(event.getClickedBlock() != null ? event.getClickedBlock().getLocation() : null);
-                }
-            }
+            actionInventoryItem.setPlayer(event.getPlayer());
+            actionInventoryItem.execute(event.getAction(), event.getClickedBlock() != null ? event.getClickedBlock().getLocation() : null);
+
             return;
         }
+
         inventoryItem.execute();
-        event.setCancelled(true);
     }
 
     @EventHandler

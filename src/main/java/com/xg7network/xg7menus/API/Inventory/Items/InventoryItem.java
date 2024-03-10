@@ -19,6 +19,7 @@ public class InventoryItem {
     protected String id;
     protected Player player;
     protected Menu inventory;
+    protected ItemType type;
     protected Runnable runnable;
     protected int slot;
     protected ItemStack itemStack;
@@ -29,6 +30,8 @@ public class InventoryItem {
         this.slot = slot;
         this.runnable = runnable;
         this.id = UUID.randomUUID().toString();
+
+        this.type = ItemType.NORMAL;
 
         NBTItem item = new NBTItem(this.itemStack);
         item.setString("xg7mid", this.id);
@@ -43,6 +46,7 @@ public class InventoryItem {
         this.slot = slot;
         this.runnable = runnable;
         this.id = UUID.randomUUID().toString();
+        this.type = ItemType.NORMAL;
 
         ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(TextUtil.get(name));
@@ -62,6 +66,7 @@ public class InventoryItem {
         this.slot = slot;
         this.runnable = runnable;
         this.id = UUID.randomUUID().toString();
+        this.type = ItemType.NORMAL;
 
         ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(TextUtil.get(name));

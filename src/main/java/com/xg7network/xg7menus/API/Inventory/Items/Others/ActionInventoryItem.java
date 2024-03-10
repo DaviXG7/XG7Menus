@@ -1,7 +1,7 @@
 package com.xg7network.xg7menus.API.Inventory.Items.Others;
 
-import com.xg7network.xg7menus.API.Inventory.Items.ActionRunnable;
 import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Items.ItemType;
 import com.xg7network.xg7menus.API.Utils.Text.TextUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -9,12 +9,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ActionInventoryItem extends InventoryItem {
-    private Action action;
-    private Action secundaryAction;
     private ActionRunnable actionRunnable;
     protected long cooldown;
     protected long currentCooldown;
@@ -23,27 +23,23 @@ public class ActionInventoryItem extends InventoryItem {
     public ActionInventoryItem(ItemStack itemStack, int slot, ActionRunnable runnable, Action actionToUse) {
         super(itemStack, slot, null);
         this.actionRunnable = runnable;
-        this.action = actionToUse;
+        this.type = ItemType.ACTION;
     }
 
     public ActionInventoryItem(Material material, String name, List<String> lore, int amount, int slot, ActionRunnable runnable, Action actionToUse) {
         super(material, name, lore, amount, slot, null);
         this.actionRunnable = runnable;
-        this.action = actionToUse;
+        this.type = ItemType.ACTION;
     }
 
     public ActionInventoryItem(MaterialData materialData, String name, List<String> lore, int amount, int slot, ActionRunnable runnable, Action actionToUse) {
         super(materialData, name, lore, amount, slot, null);
         this.actionRunnable = runnable;
-        this.action = actionToUse;
+        this.type = ItemType.ACTION;
     }
 
     public void updateRunnable(ActionRunnable runnable) {
         this.actionRunnable = runnable;
-    }
-
-    public Action getAction() {
-        return action;
     }
 
     public ActionRunnable getActionRunnable() {
@@ -65,14 +61,7 @@ public class ActionInventoryItem extends InventoryItem {
     public void setCooldownMessage(String message) {
         this.cooldownMessage = message;
     }
-    public Action getSecundaryAction() {
-        return secundaryAction;
-    }
-    public void setSecundaryAction(Action secundaryAction) {
-        this.secundaryAction = secundaryAction;
-    }
-
-    public void execute(Location location) {
+    public void execute(Action action, Location location) {
 
         if (currentCooldown > System.currentTimeMillis()) {
             if (cooldownMessage != null) TextUtil.send(cooldownMessage.replace("SECONDS", (currentCooldown - System.currentTimeMillis()) / 1000 + ""), player);
@@ -83,9 +72,14 @@ public class ActionInventoryItem extends InventoryItem {
             this.currentCooldown = System.currentTimeMillis() + cooldown;
         }
 
-        this.actionRunnable.run(location, player);
+        this.actionRunnable.run(action, location, player);
     }
     public Player getPlayer() {
         return player;
+    }
+
+    @FunctionalInterface
+    private interface ActionRunnable {
+        void run(@NotNull Action action, @Nullable Location location, @NotNull Player player);
     }
 }

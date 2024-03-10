@@ -1,6 +1,5 @@
 package com.xg7network.xg7menus.API.Inventory.Menus.Others;
 
-import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.MenuType;
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
 import org.bukkit.entity.Player;
@@ -52,12 +51,6 @@ public class AdvancedMenu extends Menu {
         public int getY() {
             return y;
         }
-    }
-
-    enum BorderStyle {
-
-
-
     }
 
 
