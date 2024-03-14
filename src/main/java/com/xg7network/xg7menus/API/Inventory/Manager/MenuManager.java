@@ -12,6 +12,7 @@ public class MenuManager {
 
     public static boolean placeholderapi = false;
 
+    private static JavaPlugin javaPlugin;
     private static List<Menu> inventories = new ArrayList<>();
 
     public static void register(Menu... menus) {
@@ -35,6 +36,7 @@ public class MenuManager {
     public static void inicialize(JavaPlugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(new MenuListener(), plugin);
         placeholderapi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
+        javaPlugin = plugin;
     }
 
     public static Menu getMenuByInventory(Inventory inventory) {
@@ -44,5 +46,9 @@ public class MenuManager {
             }
         }
         return null;
+    }
+
+    public static JavaPlugin getJavaPlugin() {
+        return javaPlugin;
     }
 }

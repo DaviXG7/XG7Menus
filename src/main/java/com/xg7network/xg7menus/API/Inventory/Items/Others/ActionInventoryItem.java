@@ -12,6 +12,7 @@ import org.bukkit.material.MaterialData;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ActionInventoryItem extends InventoryItem {
@@ -37,6 +38,7 @@ public class ActionInventoryItem extends InventoryItem {
         this.actionRunnable = runnable;
         this.type = ItemType.ACTION;
     }
+
 
     public void updateRunnable(ActionRunnable runnable) {
         this.actionRunnable = runnable;
@@ -79,7 +81,7 @@ public class ActionInventoryItem extends InventoryItem {
     }
 
     @FunctionalInterface
-    private interface ActionRunnable {
+    public interface ActionRunnable {
         void run(@NotNull Action action, @Nullable Location location, @NotNull Player player);
     }
 }

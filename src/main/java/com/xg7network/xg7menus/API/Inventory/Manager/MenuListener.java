@@ -57,7 +57,9 @@ public class MenuListener implements Listener {
     public void onClose(InventoryCloseEvent event) {
 
         Menu menu = MenuManager.getMenuByInventory(event.getInventory());
+
         if (menu == null) return;
+
         MenuManager.unregister(menu);
 
     }
@@ -66,8 +68,10 @@ public class MenuListener implements Listener {
     public void onBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         Menu menu = MenuManager.getMenuByInventory(player.getInventory());
+
         if (menu == null) return;
         if (((PlayerSelector) menu).isCancelEvents()) return;
+
         event.setCancelled(!((PlayerSelector) menu).canBreakBlocks());
         InventoryItem inventoryItem = menu.getItem(event.getPlayer().getItemInHand());
         event.setCancelled(!((PlayerSelector) menu).canBreakBlocks() || inventoryItem != null);

@@ -2,12 +2,12 @@ package com.xg7network.xg7menus;
 
 import com.xg7network.xg7menus.API.Inventory.Items.Others.ActionInventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Items.Others.SkullInventoryItem;
-import com.xg7network.xg7menus.API.Inventory.Menus.Others.ItemsInventory;
-import com.xg7network.xg7menus.API.Inventory.Menus.Others.Page.Page;
+import com.xg7network.xg7menus.API.Inventory.Menus.Others.Page.InventoryPages;
 import com.xg7network.xg7menus.API.Inventory.Menus.Others.Page.PagesMenu;
 import com.xg7network.xg7menus.API.Inventory.Menus.Others.PlayerSelector;
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.Others.StandardMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -30,32 +30,32 @@ public final class XG7Menus extends JavaPlugin implements Listener {
 
         MenuManager.inicialize(this);
 
-        selector = new PlayerSelector();
+        StandardMenu menu = new StandardMenu("Titulo", 54);
+        menu.addItems(new InventoryItem(new ItemStack(Material.PAPER), 0, () -> {
+            //faz oq vc quiser
+        }
+        ));
 
-        List<ItemStack> itemStacks = new ArrayList<>();
-        itemStacks.add(new ItemStack(Material.PAPER));
-        itemStacks.add(new ItemStack(Material.PAPER));
-        itemStacks.add(new ItemStack(Material.PAPER));
-        itemStacks.add(new ItemStack(Material.PAPER));
+        List<ItemStack> itemParaPaginas = new ArrayList<>();
+
+        itemParaPaginas.add(new ItemStack(Material.PAPER));
+
+        PagesMenu pagesMenu = new PagesMenu(itemParaPaginas, "Titulo do inventario, placeholder %page%");
+
+        //hotbar nos slots 44 ao 53
+        pagesMenu.addItems(/*item1, item2*/);
+
+        //São páginas de inventário, tipo uma lista de menus
+        InventoryPages inventoryPages = new InventoryPages("Titulo", 54);
+
+        //O menu inicial se pega com getInitialMenu
+        inventoryPages.getPageByName("name");
 
 
-        PagesMenu menu = new PagesMenu(itemStacks, "a");
+        //Seletor do inventario do jogador, com items de ações
+        PlayerSelector selector1 = new PlayerSelector();
 
-        menu.addItem(new InventoryItem(Material.PAPER, "a", new ArrayList<>(), 1, 0, null));
-        menu.addItem(new InventoryItem(Material.PAPER, "a", new ArrayList<>(), 1, 8, null));
 
-        ActionInventoryItem actionInventoryItem = new ActionInventoryItem(Material.STICK, "Test2", new ArrayList<>(), 1, 1, (location, player) -> {
-            if (location != null) {
-                player.sendMessage(location.toString());
-                menu.open(player);
-            }
-        }, Action.RIGHT_CLICK_BLOCK);
-
-        selector.addItems(
-                new InventoryItem(Material.CHEST, "Test", new ArrayList<>(), 1, 0, () -> Bukkit.broadcastMessage("testeeeee")),
-                actionInventoryItem
-
-        );
 
         this.getServer().getPluginManager().registerEvents(this, this);
 

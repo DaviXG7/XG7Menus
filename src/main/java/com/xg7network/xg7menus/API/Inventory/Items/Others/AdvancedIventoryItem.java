@@ -1,15 +1,15 @@
 package com.xg7network.xg7menus.API.Inventory.Items.Others;
 
 import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Inventory.Menus.Others.AdvancedMenu;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -45,12 +45,16 @@ public class AdvancedIventoryItem extends InventoryItem {
 
     }
 
-    public void setUpdatingItemConstantly(List<ItemStack> items, long mills) {
+    public int setUpdatingItemConstantly(List<ItemStack> items, long ticks) {
+
+        return Bukkit.getScheduler().runTaskTimerAsynchronously(MenuManager.getJavaPlugin(), () -> {
+
+        },0,ticks).getTaskId();
 
     }
 
     @FunctionalInterface
-    private interface AdvancedAction {
+    public interface AdvancedAction {
         void execute(@NotNull ClickType type, @NotNull Player player);
     }
 

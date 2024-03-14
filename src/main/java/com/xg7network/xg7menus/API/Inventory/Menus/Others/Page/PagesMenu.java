@@ -26,10 +26,9 @@ public class PagesMenu {
         }
     }
 
-    public void addItem(InventoryItem item) {
-
+    public void addItems(InventoryItem... items) {
         for (Page page : pages) {
-            page.addItems(item);
+            page.addItems(items);
         }
     }
 
