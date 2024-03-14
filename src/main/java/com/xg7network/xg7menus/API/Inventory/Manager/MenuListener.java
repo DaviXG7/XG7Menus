@@ -1,6 +1,7 @@
 package com.xg7network.xg7menus.API.Inventory.Manager;
 
 import com.xg7network.xg7menus.API.Inventory.Items.Others.ActionInventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.Others.AdvancedMenu;
 import com.xg7network.xg7menus.API.Inventory.Menus.Others.PlayerSelector;
 import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
@@ -59,6 +60,10 @@ public class MenuListener implements Listener {
         Menu menu = MenuManager.getMenuByInventory(event.getInventory());
 
         if (menu == null) return;
+
+        if (menu instanceof AdvancedMenu) {
+            ((AdvancedMenu)menu).teminate();
+        }
 
         MenuManager.unregister(menu);
 

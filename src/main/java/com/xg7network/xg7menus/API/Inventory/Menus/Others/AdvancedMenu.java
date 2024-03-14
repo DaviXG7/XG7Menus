@@ -1,11 +1,19 @@
 package com.xg7network.xg7menus.API.Inventory.Menus.Others;
 
+import com.xg7network.xg7menus.API.Inventory.Items.Others.AdvancedIventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Inventory.MenuType;
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AdvancedMenu extends Menu {
+
+    private List<Integer> tasks = new ArrayList<>();
 
     public AdvancedMenu(String title, int size) {
         super(MenuType.ADVANCED, title, size);
@@ -32,7 +40,19 @@ public class AdvancedMenu extends Menu {
         }
     }
 
-    static class InventoryCoordinate {
+    public void open(Player player) {
+        MenuManager.register(this);
+        player.openInventory(inventory);
+        this.items.forEach(item -> {
+            tasks.add(((AdvancedIventoryItem)item).inicialize());
+        });
+    }
+
+    public void teminate() {
+        tasks.forEach(task -> Bukkit.getScheduler().cancelTask(task));
+    }
+
+    public static class InventoryCoordinate {
         private int x;
         private int y;
 

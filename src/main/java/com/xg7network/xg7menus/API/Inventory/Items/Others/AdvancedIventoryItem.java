@@ -19,6 +19,8 @@ public class AdvancedIventoryItem extends InventoryItem {
     private boolean updatingItem = false;
     private AdvancedAction advancedAction;
     private ClickType clickType;
+    private List<ItemStack> itemsUpdating;
+    private long ticks;
 
     public AdvancedIventoryItem(ItemStack itemStack, int slot, AdvancedAction advancedAction, AdvancedMenu menu) {
         super(itemStack, slot, null);
@@ -45,11 +47,24 @@ public class AdvancedIventoryItem extends InventoryItem {
 
     }
 
-    public int setUpdatingItemConstantly(List<ItemStack> items, long ticks) {
+    public void setUpdatingItemConstantly(List<ItemStack> items, long ticks) {
+        this.ticks = ticks;
+        this.itemsUpdating = items;
+    }
+
+    public int inicialize() {
+
+        if (itemsUpdating == null) return -1;
 
         return Bukkit.getScheduler().runTaskTimerAsynchronously(MenuManager.getJavaPlugin(), () -> {
+            for (ItemStack itemStack1 : this.itemsUpdating) {
+                this.menu.getInventory().getItem(this.slot).setItemMeta(itemStack1.getItemMeta());
+                this.menu.getInventory().getItem(this.slot).setType(itemStack1.getType());
+                this.menu.getInventory().getItem(this.slot).setData(itemStack1.getData());
+                this.menu.getInventory().getItem(this.slot).setAmount(itemStack1.getAmount());
+            }
 
-        },0,ticks).getTaskId();
+        },0,this.ticks).getTaskId();
 
     }
 
