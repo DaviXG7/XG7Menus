@@ -61,7 +61,7 @@ public class AdvancedMenu extends Menu {
             this.y = y;
         }
         protected static int toSlot(int x, int y) {
-            return (x * y - (9 - x)) - 1;
+            return 9 * y - (9 - x) - 1;
         }
 
         public int getX() {
