@@ -1,6 +1,7 @@
 package com.xg7network.xg7menus.API.Inventory.Manager;
 
 import com.xg7network.xg7menus.API.Inventory.Items.Others.ActionInventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Items.Others.AdvancedIventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Menus.Others.AdvancedMenu;
 import com.xg7network.xg7menus.API.Inventory.Menus.Others.PlayerSelector;
 import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
@@ -23,14 +24,16 @@ public class MenuListener implements Listener {
         Menu menu = MenuManager.getMenuByInventory(event.getClickedInventory());
         if (menu == null) return;
         event.setCancelled(true);
-        switch (menu.getType()) {
-            case STANDARD:
-            case PAGE:
-            case PLAYERSELECTOR:
-                InventoryItem inventoryItem = menu.getItem(event.getSlot());
-                if (inventoryItem == null) return;
-                inventoryItem.execute();
+
+        InventoryItem inventoryItem = menu.getItem(event.getSlot());
+        if (inventoryItem == null) return;
+
+        if (inventoryItem instanceof AdvancedIventoryItem) {
+            ((AdvancedIventoryItem)inventoryItem).execute(event.getClick());
+            return;
         }
+
+        inventoryItem.execute();
 
     }
 
@@ -85,8 +88,10 @@ public class MenuListener implements Listener {
     public void onPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         Menu menu = MenuManager.getMenuByInventory(player.getInventory());
+
         if (menu == null) return;
         if (((PlayerSelector) menu).isCancelEvents()) return;
+
         InventoryItem inventoryItem = menu.getItem(event.getPlayer().getItemInHand());
         event.setCancelled(!((PlayerSelector) menu).canPlaceBlocks() || inventoryItem != null);
     }
@@ -94,8 +99,10 @@ public class MenuListener implements Listener {
     public void onDrop(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
         Menu menu = MenuManager.getMenuByInventory(player.getInventory());
+
         if (menu == null) return;
         if (((PlayerSelector) menu).isCancelEvents()) return;
+
         InventoryItem inventoryItem = menu.getItem(event.getPlayer().getItemInHand());
         event.setCancelled(!((PlayerSelector) menu).canDropItems() || inventoryItem != null);
     }

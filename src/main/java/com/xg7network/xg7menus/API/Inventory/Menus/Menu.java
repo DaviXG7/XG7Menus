@@ -1,7 +1,6 @@
 package com.xg7network.xg7menus.API.Inventory.Menus;
 
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
-import com.xg7network.xg7menus.API.Inventory.MenuType;
 import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
 import com.xg7network.xg7menus.API.Utils.Text.TextUtil;
 import de.tr7zw.changeme.nbtapi.NBTItem;
@@ -18,14 +17,11 @@ public abstract class Menu {
 
     protected List<InventoryItem> items = new ArrayList<>();
     protected Inventory inventory;
-    private MenuType type;
 
-    public Menu(MenuType type, String title, int size) {
-        this.type = type;
+    public Menu(String title, int size) {
         this.inventory = Bukkit.createInventory(null, size, TextUtil.get(title));
     }
-    public Menu(MenuType type, String title, int size, Player player) {
-        this.type = type;
+    public Menu(String title, int size, Player player) {
         this.inventory = Bukkit.createInventory(player, size, TextUtil.get(title, player));
     }
 
@@ -78,10 +74,6 @@ public abstract class Menu {
     public void open(Player player) {
         MenuManager.register(this);
         player.openInventory(inventory);
-    }
-
-    public MenuType getType() {
-        return this.type;
     }
 
 }

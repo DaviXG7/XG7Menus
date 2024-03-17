@@ -1,8 +1,8 @@
 package com.xg7network.xg7menus.API.Inventory.Menus.Others;
 
+import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Items.Others.AdvancedIventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
-import com.xg7network.xg7menus.API.Inventory.MenuType;
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -16,36 +16,46 @@ public class AdvancedMenu extends Menu {
     private List<Integer> tasks = new ArrayList<>();
 
     public AdvancedMenu(String title, int size) {
-        super(MenuType.ADVANCED, title, size);
+        super(title, size);
     }
 
     public AdvancedMenu(String title, int size, Player player) {
-        super(MenuType.ADVANCED, title, size, player);
+        super(title, size, player);
     }
 
-    public void fillArea(InventoryCoordinate initialCoord, InventoryCoordinate finalCoord, ItemStack item) {
+    public void fillRetangle(InventoryCoordinate initialCoord, InventoryCoordinate finalCoord, InventoryItem item) {
 
-        for (int y = initialCoord.getY() - 1; y < finalCoord.getX(); y++) for (int x = initialCoord.getX() - 1; x < finalCoord.getX(); x++) this.inventory.setItem(InventoryCoordinate.toSlot(x, y), item);
-
+        for (int y = initialCoord.getY() - 1; y < finalCoord.getX(); y++) for (int x = initialCoord.getX() - 1; x < finalCoord.getX(); x++) this.inventory.setItem(InventoryCoordinate.toSlot(x, y), item.getItemStack());
+        this.items.add(item);
     }
 
-    public void retangle(InventoryCoordinate initialCoord, InventoryCoordinate finalCoord, ItemStack item) {
+    public void retangle(InventoryCoordinate initialCoord, InventoryCoordinate finalCoord, InventoryItem item) {
         for (int x = initialCoord.getX() - 1; x < finalCoord.getX(); x++) {
-            this.inventory.setItem(InventoryCoordinate.toSlot(x, initialCoord.getY()), item);
-            this.inventory.setItem(InventoryCoordinate.toSlot(x, finalCoord.getY()), item);
+            this.inventory.setItem(InventoryCoordinate.toSlot(x, initialCoord.getY()), item.getItemStack());
+            this.inventory.setItem(InventoryCoordinate.toSlot(x, finalCoord.getY()), item.getItemStack());
         }
         for (int y = initialCoord.getY() - 2; y < finalCoord.getY() - 1;  y++) {
-            this.inventory.setItem(InventoryCoordinate.toSlot(initialCoord.getX(), y), item);
-            this.inventory.setItem(InventoryCoordinate.toSlot(finalCoord.getX(), y), item);
+            this.inventory.setItem(InventoryCoordinate.toSlot(initialCoord.getX(), y), item.getItemStack());
+            this.inventory.setItem(InventoryCoordinate.toSlot(finalCoord.getX(), y), item.getItemStack());
         }
+        this.items.add(item);
+    }
+
+    public void setFillItem(InventoryItem item) {
+
+        for (int i = 0; i < this.getInventory().getSize(); i++) {
+            if (this.getInventory().getItem(i) == null) {
+                this.inventory.setItem(i, item.getItemStack());
+            }
+        }
+
+        this.items.add(item);
     }
 
     public void open(Player player) {
         MenuManager.register(this);
         player.openInventory(inventory);
-        this.items.forEach(item -> {
-            tasks.add(((AdvancedIventoryItem)item).inicialize());
-        });
+        this.items.forEach(item -> tasks.add(((AdvancedIventoryItem)item).inicialize()));
     }
 
     public void teminate() {
@@ -61,7 +71,7 @@ public class AdvancedMenu extends Menu {
             this.y = y;
         }
         protected static int toSlot(int x, int y) {
-            return (x * y - (9 - x)) - 1;
+            return 9 * y - (9 - x) - 1;
         }
 
         public int getX() {

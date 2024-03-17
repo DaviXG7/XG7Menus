@@ -16,9 +16,7 @@ import java.util.List;
 public class AdvancedIventoryItem extends InventoryItem {
 
     private AdvancedMenu menu;
-    private boolean updatingItem = false;
     private AdvancedAction advancedAction;
-    private ClickType clickType;
     private List<ItemStack> itemsUpdating;
     private long ticks;
 
@@ -26,7 +24,6 @@ public class AdvancedIventoryItem extends InventoryItem {
         super(itemStack, slot, null);
         this.menu = menu;
         this.advancedAction = advancedAction;
-
     }
 
     public AdvancedIventoryItem(Material material, String name, List<String> lore, int amount, int slot, AdvancedAction advancedAction, AdvancedMenu menu) {

@@ -1,7 +1,6 @@
 package com.xg7network.xg7menus.API.Inventory.Menus.Others.Page;
 
 
-import com.xg7network.xg7menus.API.Inventory.MenuType;
 import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
 import org.bukkit.Bukkit;
@@ -16,13 +15,13 @@ public class Page extends Menu {
     private int index;
 
     public Page(String title, PagesMenu menu, int index) {
-        super(MenuType.PAGE, title.replace("%page%", index + 1 + ""), 54);
+        super(title.replace("%page%", index + 1 + ""), 54);
         this.menu = menu;
         this.index = index;
     }
 
     public Page(String title, Player player, PagesMenu menu, int index) {
-        super(MenuType.PAGE, title.replace("%page%", index + 1 + ""), 54, player);
+        super(title.replace("%page%", index + 1 + ""), 54, player);
         this.menu = menu;
         this.index = index;
     }
@@ -32,13 +31,11 @@ public class Page extends Menu {
         List<ItemStack> itemStackList = items;
 
         for (int i = 0; i < 45; i++) {
-            if (!itemStackList.isEmpty()) {
-                InventoryItem item = new InventoryItem(itemStackList.get(0), i, null);
-                this.inventory.setItem(item.getSlot(), item.getItemStack());
-                this.items.add(item);
-                itemStackList.remove(0);
-            } else break;
-
+            if (itemStackList.isEmpty()) break;
+            InventoryItem item = new InventoryItem(itemStackList.get(0), i, null);
+            this.inventory.setItem(item.getSlot(), item.getItemStack());
+            this.items.add(item);
+            itemStackList.remove(0);
         }
         return itemStackList;
 
