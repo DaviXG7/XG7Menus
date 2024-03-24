@@ -24,7 +24,6 @@ public enum MenuClickType {
     RIGHT_CLICK_AIR,
     PHYSICAL;
 
-    MenuClickType() {
-    }
+
 
 }

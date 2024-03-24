@@ -1,10 +1,10 @@
-package com.xg7network.xg7menus.API.Inventory.Items.Others;
+package com.xg7network.xg7menus.API.Inventory.Menus.Items.Others;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.Items.InventoryItem;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;

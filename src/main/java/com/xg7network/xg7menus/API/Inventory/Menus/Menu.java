@@ -1,15 +1,13 @@
 package com.xg7network.xg7menus.API.Inventory.Menus;
 
-import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.Items.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Utils.Text.TextUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public abstract class Menu {
@@ -66,8 +64,11 @@ public abstract class Menu {
         
         return this;
     }
-    public InventoryItem getItem(int slot) {
+    public InventoryItem getItemBySlot(int slot) {
         return items.stream().filter(item -> item.getSlot() == slot).findFirst().orElse(null);
+    }
+    public InventoryItem getItemById(int id) {
+        return items.stream().filter(item -> item.getId() == id).findFirst().orElse(null);
     }
 
     public void open(Player player) {

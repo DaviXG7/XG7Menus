@@ -1,4 +1,4 @@
-package com.xg7network.xg7menus.API.Inventory.Items;
+package com.xg7network.xg7menus.API.Inventory.Menus.Items;
 
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
 import com.xg7network.xg7menus.API.Utils.Text.TextUtil;
@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class InventoryItem {
     private int slot;
     protected ItemStack itemStack;
+    private int id;
 
     // Constructor
     public InventoryItem(ItemStack itemStack, int slot) {
@@ -44,6 +45,15 @@ public class InventoryItem {
         ItemMeta meta = this.itemStack.getItemMeta();
         meta.addEnchant(enchantment, level, true);
         this.itemStack.setItemMeta(meta);
+        return this;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public InventoryItem setId(int id) {
+        this.id = id;
         return this;
     }
 

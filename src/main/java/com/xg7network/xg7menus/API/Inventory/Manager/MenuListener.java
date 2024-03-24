@@ -1,7 +1,7 @@
 package com.xg7network.xg7menus.API.Inventory.Manager;
 
 import com.xg7network.xg7menus.API.Inventory.Menus.Others.PlayerSelector;
-import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.Items.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -22,7 +22,7 @@ public class MenuListener implements Listener {
         if (menu == null) return;
         event.setCancelled(true);
 
-        InventoryItem inventoryItem = menu.getItem(event.getSlot());
+        InventoryItem inventoryItem = menu.getItemBySlot(event.getSlot());
         if (inventoryItem == null) return;
 
 
@@ -37,7 +37,7 @@ public class MenuListener implements Listener {
         if (menu == null) return;
         event.setCancelled(true);
 
-        InventoryItem inventoryItem = menu.getItem(player.getInventory().getHeldItemSlot());
+        InventoryItem inventoryItem = menu.getItemBySlot(player.getInventory().getHeldItemSlot());
         if (inventoryItem == null) return;
 
         Bukkit.getPluginManager().callEvent(new MenuClickEvent(menu, inventoryItem, MenuClickType.valueOf(event.getAction().name()), event.getClickedBlock().getLocation(), player.getInventory().getHeldItemSlot(), event.getPlayer()));
@@ -63,7 +63,7 @@ public class MenuListener implements Listener {
         if (((PlayerSelector) menu).isCancelEvents()) return;
 
         event.setCancelled(!((PlayerSelector) menu).canBreakBlocks());
-        InventoryItem inventoryItem = menu.getItem(player.getInventory().getHeldItemSlot());
+        InventoryItem inventoryItem = menu.getItemBySlot(player.getInventory().getHeldItemSlot());
         event.setCancelled(!((PlayerSelector) menu).canBreakBlocks() || inventoryItem != null);
     }
     @EventHandler
@@ -74,7 +74,7 @@ public class MenuListener implements Listener {
         if (menu == null) return;
         if (((PlayerSelector) menu).isCancelEvents()) return;
 
-        InventoryItem inventoryItem = menu.getItem(player.getInventory().getHeldItemSlot());
+        InventoryItem inventoryItem = menu.getItemBySlot(player.getInventory().getHeldItemSlot());
         event.setCancelled(!((PlayerSelector) menu).canPlaceBlocks() || inventoryItem != null);
     }
     @EventHandler
@@ -85,7 +85,7 @@ public class MenuListener implements Listener {
         if (menu == null) return;
         if (((PlayerSelector) menu).isCancelEvents()) return;
 
-        InventoryItem inventoryItem = menu.getItem(player.getInventory().getHeldItemSlot());
+        InventoryItem inventoryItem = menu.getItemBySlot(player.getInventory().getHeldItemSlot());
         event.setCancelled(!((PlayerSelector) menu).canDropItems() || inventoryItem != null);
     }
 

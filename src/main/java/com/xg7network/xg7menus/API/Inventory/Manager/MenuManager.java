@@ -15,7 +15,6 @@ public class MenuManager {
 
     private static JavaPlugin javaPlugin;
     private static List<Menu> inventories = new ArrayList<>();
-    private static List<Integer> itemsUpdatingTask = new ArrayList<>();
 
     public static void register(Menu... menus) {
 

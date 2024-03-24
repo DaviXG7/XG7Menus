@@ -1,6 +1,6 @@
 package com.xg7network.xg7menus.API.Inventory.Menus.Others.Page;
 
-import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.Items.InventoryItem;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -11,18 +11,18 @@ import java.util.List;
 public class PagesMenu {
     private List<Page> pages = new ArrayList<>();
 
-    public PagesMenu(List<ItemStack> itemStacks, String title) {
+    public PagesMenu(List<ItemStack> itemStacks, String title, int pagesId) {
         List<ItemStack> stackList = new ArrayList<>(itemStacks);
         int index = 0;
         while (!stackList.isEmpty()) {
-            Page page = new Page(title, this, index);
+            Page page = new Page(title, this, index, pagesId);
             stackList = page.addListOfItems(stackList);
             index++;
             pages.add(page);
         }
 
         if (pages.isEmpty()) {
-            pages.add(new Page(title, this, 0));
+            pages.add(new Page(title, this, 0, pagesId));
         }
     }
 

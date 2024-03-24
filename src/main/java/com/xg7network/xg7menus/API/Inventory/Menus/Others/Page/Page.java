@@ -1,7 +1,7 @@
 package com.xg7network.xg7menus.API.Inventory.Menus.Others.Page;
 
 
-import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.Items.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
 import com.xg7network.xg7menus.API.Inventory.Menus.Others.StandardMenu;
 import org.bukkit.Bukkit;
@@ -15,14 +15,14 @@ public class Page extends StandardMenu {
     private PagesMenu menu;
     private int index;
 
-    public Page(String title, PagesMenu menu, int index) {
-        super(title.replace("%page%", index + 1 + ""), 54, 0);
+    public Page(String title, PagesMenu menu, int index, int id) {
+        super(title.replace("%page%", index + 1 + ""), 54, id);
         this.menu = menu;
         this.index = index;
     }
 
-    public Page(String title, Player player, PagesMenu menu, int index) {
-        super(title.replace("%page%", index + 1 + ""), 54, player, 0);
+    public Page(String title, Player player, PagesMenu menu, int index, int id) {
+        super(title.replace("%page%", index + 1 + ""), 54, player, id);
         this.menu = menu;
         this.index = index;
     }

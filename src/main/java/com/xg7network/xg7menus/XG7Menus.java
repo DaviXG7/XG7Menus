@@ -1,26 +1,25 @@
 package com.xg7network.xg7menus;
 
-import com.xg7network.xg7menus.API.Inventory.Items.Others.SkullInventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuClickEvent;
+import com.xg7network.xg7menus.API.Inventory.Menus.Others.ItemsInventory.ItemsInventory;
+import com.xg7network.xg7menus.API.Inventory.Menus.Others.ItemsInventory.ItemsInventoryManager;
 import com.xg7network.xg7menus.API.Inventory.Menus.Others.Page.InventoryPages;
-import com.xg7network.xg7menus.API.Inventory.Menus.Others.Page.PagesMenu;
-import com.xg7network.xg7menus.API.Inventory.Menus.Others.PlayerSelector;
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
-import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.Items.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Menus.Others.StandardMenu;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public final class XG7Menus extends JavaPlugin implements Listener {
+    Inventory inventory;
 
     @Override
     public void onEnable() {
@@ -37,9 +36,9 @@ public final class XG7Menus extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onMenuClick(MenuClickEvent event) {
-        if (event.getMenu().getId() == 0) {
+        if (event.getMenu().getId() == 1) {
             if (event.getSlot() == 0) {
-                event.getPlayer().sendMessage(event.getLocation().toString());
+                event.getMenu().updateItem(new InventoryItem(new ItemStack(Material.ACACIA_FENCE), 0));
             }
         }
 
@@ -47,14 +46,25 @@ public final class XG7Menus extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-
-        PlayerSelector menu = new PlayerSelector(0);
-        menu.addItems(new InventoryItem(new ItemStack(Material.PAPER), 0));
-        menu.open(event.getPlayer());
+        ItemsInventory itemsInventory = new ItemsInventory();
+        itemsInventory.addItems(new InventoryItem(new ItemStack(Material.ACACIA_FENCE), 1));
+        inventory = itemsInventory.open(event.getPlayer(), "a", 9);
 
     }
+
+    @EventHandler
+    public void onClose(InventoryCloseEvent event) {
+        if (ItemsInventoryManager.contains(event.getPlayer().getUniqueId())) {
+            if (ItemsInventoryManager.getOldInventory((Player) event.getPlayer()).equals(inventory)) {
+                inventory = ItemsInventoryManager.unregister((Player)event.getPlayer());
+            }
+        }
+    }
+
     @EventHandler
     public void onSneak(PlayerToggleSneakEvent event) {
+
+        event.getPlayer().openInventory(inventory);
 
     }
 }
