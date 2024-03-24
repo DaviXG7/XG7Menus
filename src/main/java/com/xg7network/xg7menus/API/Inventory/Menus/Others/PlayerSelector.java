@@ -17,8 +17,8 @@ public class PlayerSelector extends Menu {
     private boolean dropItems = false;
     private boolean cancelEvents = false;
 
-    public PlayerSelector() {
-        super("", 9);
+    public PlayerSelector(int id) {
+        super("", 9, id);
         this.inventory = null;
     }
 

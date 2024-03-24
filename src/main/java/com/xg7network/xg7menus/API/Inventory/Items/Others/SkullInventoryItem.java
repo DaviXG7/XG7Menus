@@ -28,25 +28,25 @@ public class SkullInventoryItem extends InventoryItem {
     private String value;
     private String owner;
 
-    public SkullInventoryItem(String name, List<String> lore, int amount, int slot, Runnable runnable, String skinValue) {
+    public SkullInventoryItem(String name, List<String> lore, int amount, int slot, String skinValue) {
         super(Arrays.asList(Material.values()).stream().map(Material::name).collect(Collectors.toList()).contains("PLAYER_HEAD")
                 ? new MaterialData(Material.getMaterial("PLAYER_HEAD")) : new MaterialData(Material.getMaterial("SKULL_ITEM"), (byte) 3),
-                name, lore, amount, slot, runnable);
+                name, lore, amount, slot);
         setSkinValue(skinValue);
     }
 
-    public SkullInventoryItem(String name, List<String> lore, int amount, int slot, Runnable runnable, UUID player) {
+    public SkullInventoryItem(String name, List<String> lore, int amount, int slot, UUID player) {
         super(Arrays.asList(Material.values()).stream().map(Material::name).collect(Collectors.toList()).contains("PLAYER_HEAD")
                         ? new MaterialData(Material.getMaterial("PLAYER_HEAD")) : new MaterialData(Material.getMaterial("SKULL_ITEM"), (byte) 3),
-                name, lore, amount, slot, runnable);
+                name, lore, amount, slot);
         setSkin(player);
 
     }
 
-    public SkullInventoryItem(String name, List<String> lore, int amount, int slot, Runnable runnable, Player owner) {
+    public SkullInventoryItem(String name, List<String> lore, int amount, int slot, Player owner) {
         super(Arrays.asList(Material.values()).stream().map(Material::name).collect(Collectors.toList()).contains("PLAYER_HEAD")
                         ? new MaterialData(Material.getMaterial("PLAYER_HEAD")) : new MaterialData(Material.getMaterial("SKULL_ITEM"), (byte) 3),
-                name, lore, amount, slot, runnable);
+                name, lore, amount, slot);
         boolean skull = Arrays.asList(Material.values())
                 .stream()
                 .map(Material::name)
@@ -54,7 +54,7 @@ public class SkullInventoryItem extends InventoryItem {
                 .contains("PLAYER_HEAD");
 
 
-        SkullMeta skullMeta = (SkullMeta) this.itemStack.getItemMeta();
+        SkullMeta skullMeta = (SkullMeta) getItemStack().getItemMeta();
 
         if (skull) skullMeta.setOwningPlayer(owner);
         else skullMeta.setOwner(owner.getName());

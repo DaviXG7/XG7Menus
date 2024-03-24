@@ -1,28 +1,30 @@
 package com.xg7network.xg7menus.API.Inventory.Menus;
 
-import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Utils.Text.TextUtil;
-import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public abstract class Menu {
 
     protected List<InventoryItem> items = new ArrayList<>();
     protected Inventory inventory;
+    private int id;
 
-    public Menu(String title, int size) {
+    public Menu(String title, int size, int id) {
         this.inventory = Bukkit.createInventory(null, size, TextUtil.get(title));
+        this.id = id;
     }
-    public Menu(String title, int size, Player player) {
+    public Menu(String title, int size, Player player, int id) {
         this.inventory = Bukkit.createInventory(player, size, TextUtil.get(title, player));
+        this.id = id;
     }
 
     public Inventory getInventory() {
@@ -33,6 +35,10 @@ public abstract class Menu {
         return items;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public Menu addItems(InventoryItem... items) {
         for (InventoryItem item : items) {
             if (item.getSlot() < 0) continue;
@@ -41,11 +47,14 @@ public abstract class Menu {
         }
         return this;
     }
+
+
     public Menu updateItem(InventoryItem item) {
         InventoryItem itemChose = null;
-        for (InventoryItem items : this.items) {
-            if (items.getSlot() == item.getSlot()) {
-                itemChose = items;
+        for (InventoryItem item1 : this.items) {
+            if (item1.getSlot() == item1.getSlot()) {
+                itemChose = item1;
+                break;
             }
         }
         
@@ -57,16 +66,6 @@ public abstract class Menu {
         
         return this;
     }
-
-    public InventoryItem getItem(ItemStack itemStack) {
-        if (itemStack == null || itemStack.getType() == Material.AIR) return null;
-        for (InventoryItem item : items) {
-            if (new NBTItem(itemStack).getString("xg7mid").equals(item.getId())) {
-                return item;
-            }
-        }
-        return null;
-    }
     public InventoryItem getItem(int slot) {
         return items.stream().filter(item -> item.getSlot() == slot).findFirst().orElse(null);
     }
@@ -75,5 +74,6 @@ public abstract class Menu {
         MenuManager.register(this);
         player.openInventory(inventory);
     }
+
 
 }

@@ -10,12 +10,12 @@ public class InventoryPages {
     private HashMap<String, StandardMenu> menus = new HashMap<>();
     private StandardMenu inicialMenu;
 
-    public InventoryPages(String initialMenuTitle, int initialMenuSize) {
-        this.inicialMenu = new StandardMenu(initialMenuTitle, initialMenuSize);
+    public InventoryPages(String initialMenuTitle, int initialMenuSize, int initialMenuId) {
+        this.inicialMenu = new StandardMenu(initialMenuTitle, initialMenuSize, initialMenuId);
     }
 
-    public InventoryPages(String initialMenuTitle, int initialMenuSize, Player player) {
-        this.inicialMenu = new StandardMenu(initialMenuTitle, initialMenuSize, player);
+    public InventoryPages(String initialMenuTitle, int initialMenuSize, Player player, int initialMenuId) {
+        this.inicialMenu = new StandardMenu(initialMenuTitle, initialMenuSize, player, initialMenuId);
     }
 
     public InventoryPages addPage(String name, StandardMenu menu) {

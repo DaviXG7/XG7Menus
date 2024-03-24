@@ -3,25 +3,26 @@ package com.xg7network.xg7menus.API.Inventory.Menus.Others.Page;
 
 import com.xg7network.xg7menus.API.Inventory.Items.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
+import com.xg7network.xg7menus.API.Inventory.Menus.Others.StandardMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-public class Page extends Menu {
+public class Page extends StandardMenu {
 
     private PagesMenu menu;
     private int index;
 
     public Page(String title, PagesMenu menu, int index) {
-        super(title.replace("%page%", index + 1 + ""), 54);
+        super(title.replace("%page%", index + 1 + ""), 54, 0);
         this.menu = menu;
         this.index = index;
     }
 
     public Page(String title, Player player, PagesMenu menu, int index) {
-        super(title.replace("%page%", index + 1 + ""), 54, player);
+        super(title.replace("%page%", index + 1 + ""), 54, player, 0);
         this.menu = menu;
         this.index = index;
     }
@@ -32,7 +33,7 @@ public class Page extends Menu {
 
         for (int i = 0; i < 45; i++) {
             if (itemStackList.isEmpty()) break;
-            InventoryItem item = new InventoryItem(itemStackList.get(0), i, null);
+            InventoryItem item = new InventoryItem(itemStackList.get(0), i);
             this.inventory.setItem(item.getSlot(), item.getItemStack());
             this.items.add(item);
             itemStackList.remove(0);
