@@ -1,5 +1,6 @@
-package com.xg7network.xg7menus.API.Inventory.Manager;
+package com.xg7network.xg7menus.API.Inventory.Manager.Events;
 
+import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Inventory.Menus.Others.PlayerSelector;
 import com.xg7network.xg7menus.API.Inventory.Menus.Items.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;

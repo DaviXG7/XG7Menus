@@ -1,4 +1,4 @@
-package com.xg7network.xg7menus.API.Inventory.Menus.Others.ItemsInventory;
+package com.xg7network.xg7menus.API.Inventory.Menus.Others;
 
 import com.xg7network.xg7menus.API.Inventory.Manager.ItemsInventoryManager;
 import com.xg7network.xg7menus.API.Inventory.Menus.Items.InventoryItem;

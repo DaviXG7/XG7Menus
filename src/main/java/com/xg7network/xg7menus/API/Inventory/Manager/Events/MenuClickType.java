@@ -1,4 +1,4 @@
-package com.xg7network.xg7menus.API.Inventory.Manager;
+package com.xg7network.xg7menus.API.Inventory.Manager.Events;
 
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.ClickType;

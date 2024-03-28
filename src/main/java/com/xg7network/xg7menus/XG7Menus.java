@@ -1,10 +1,11 @@
 package com.xg7network.xg7menus;
 
-import com.xg7network.xg7menus.API.Inventory.Manager.MenuClickEvent;
-import com.xg7network.xg7menus.API.Inventory.Menus.Others.ItemsInventory.ItemsInventory;
+import com.xg7network.xg7menus.API.Inventory.Manager.Events.MenuClickEvent;
+import com.xg7network.xg7menus.API.Inventory.Menus.Others.ItemsInventory;
 import com.xg7network.xg7menus.API.Inventory.Manager.ItemsInventoryManager;
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Inventory.Menus.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.Others.StandardMenu;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -44,10 +45,6 @@ public final class XG7Menus extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        ItemsInventory itemsInventory = new ItemsInventory();
-        itemsInventory.addItems(new InventoryItem(new ItemStack(Material.ACACIA_FENCE), 1));
-        inventory = itemsInventory.open(event.getPlayer(), "a", 9);
-
     }
 
     @EventHandler

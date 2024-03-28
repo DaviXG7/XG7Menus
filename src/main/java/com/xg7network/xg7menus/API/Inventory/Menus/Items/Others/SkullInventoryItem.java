@@ -103,9 +103,11 @@ public class SkullInventoryItem extends InventoryItem {
         }
     }
 
+
+    @SuppressWarnings("all")
     private void setSkinValue(String value) {
 
-        GameProfile gameProfile = new GameProfile(UUID.randomUUID(), null);
+        GameProfile gameProfile = new GameProfile(UUID.randomUUID(), "null");
         gameProfile.getProperties().put("textures", new Property("textures", value));
 
         SkullMeta skullMeta = (SkullMeta) this.itemStack.getItemMeta();
