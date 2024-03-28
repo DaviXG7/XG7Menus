@@ -1,5 +1,6 @@
 package com.xg7network.xg7menus.API.Inventory.Menus.Others.ItemsInventory;
 
+import com.xg7network.xg7menus.API.Inventory.Manager.ItemsInventoryManager;
 import com.xg7network.xg7menus.API.Inventory.Menus.Items.InventoryItem;
 import com.xg7network.xg7menus.API.Utils.Text.TextUtil;
 import org.bukkit.Bukkit;
