@@ -1,8 +1,8 @@
 package com.xg7network.xg7menus.API.Inventory.Menus;
 
-import com.xg7network.xg7menus.API.Inventory.Menus.Items.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Utils.Text.TextUtil;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -10,6 +10,7 @@ import org.bukkit.inventory.Inventory;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public abstract class Menu {
 
     protected List<InventoryItem> items = new ArrayList<>();
@@ -23,18 +24,6 @@ public abstract class Menu {
     public Menu(String title, int size, Player player, int id) {
         this.inventory = Bukkit.createInventory(player, size, TextUtil.get(title, player));
         this.id = id;
-    }
-
-    public Inventory getInventory() {
-        return inventory;
-    }
-
-    public List<InventoryItem> getItems() {
-        return items;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public Menu addItems(InventoryItem... items) {
@@ -55,13 +44,13 @@ public abstract class Menu {
                 break;
             }
         }
-        
+
         if (itemChose == null) return this;
 
         this.inventory.setItem(item.getSlot(), item.getItemStack());
         this.items.remove(itemChose);
         this.items.add(item);
-        
+
         return this;
     }
     public InventoryItem getItemBySlot(int slot) {

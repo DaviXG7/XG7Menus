@@ -1,5 +1,6 @@
 package com.xg7network.xg7menus.API.Utils.Text;
 
+import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
 import com.xg7network.xg7menus.API.Utils.NMSUtil;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatMessageType;
@@ -8,8 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
-
-import static com.xg7network.xg7menus.API.Inventory.Manager.MenuManager.placeholderapi;
 
 public class TextUtil {
 
@@ -25,7 +24,7 @@ public class TextUtil {
 
     public static String get(String text, Player player) {
 
-        if (placeholderapi) {
+        if (MenuManager.placeholderAPI) {
             text = PlaceholderAPI.setPlaceholders(player, text);
 
             text = Color.translateHexColor(text);

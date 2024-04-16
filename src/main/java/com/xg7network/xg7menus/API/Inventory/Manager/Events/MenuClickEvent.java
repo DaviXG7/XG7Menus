@@ -1,14 +1,15 @@
 package com.xg7network.xg7menus.API.Inventory.Manager.Events;
 
-import com.xg7network.xg7menus.API.Inventory.Manager.Events.MenuClickType;
-import com.xg7network.xg7menus.API.Inventory.Menus.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
+import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 import org.jetbrains.annotations.NotNull;
 
+@Getter
 public class MenuClickEvent extends PlayerEvent {
     private static final HandlerList handlers = new HandlerList();
 
@@ -25,34 +26,6 @@ public class MenuClickEvent extends PlayerEvent {
         this.type = type;
         this.location = location;
         this.slot = slot;
-    }
-
-    public MenuClickEvent(Menu menu, InventoryItem inventoryItem, MenuClickType type, int slot, Player player) {
-        super(player);
-        this.menu = menu;
-        this.inventoryItem = inventoryItem;
-        this.type = type;
-        this.slot = slot;
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public InventoryItem getInventoryItem() {
-        return inventoryItem;
-    }
-
-    public MenuClickType getType() {
-        return type;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public int getSlot() {
-        return slot;
     }
 
     @Override

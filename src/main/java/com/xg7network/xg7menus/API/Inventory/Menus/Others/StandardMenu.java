@@ -1,11 +1,12 @@
 package com.xg7network.xg7menus.API.Inventory.Menus.Others;
 
-import com.xg7network.xg7menus.API.Inventory.Menus.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 
 public class StandardMenu extends Menu {
-
 
     public StandardMenu(String title, int size, int id) {
         super(title, size, id);
@@ -44,25 +45,15 @@ public class StandardMenu extends Menu {
         this.items.add(item);
     }
 
+    @Getter
+    @AllArgsConstructor
     public static class InventoryCoordinate {
         private int x;
         private int y;
-
-        public InventoryCoordinate(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
         public static int toSlot(int x, int y) {
             return 9 * y - (9 - x) - 1;
         }
 
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
-        }
     }
 
 }

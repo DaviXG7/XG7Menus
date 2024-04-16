@@ -1,21 +1,27 @@
 package com.xg7network.xg7menus.API.Inventory.Menus.Others;
 
+
 import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
-import com.xg7network.xg7menus.API.Inventory.Menus.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
+@Getter
+@Setter
 public class PlayerSelector extends Menu {
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private ItemStack[] playerItemsStack;
-    private boolean breakBlocks = true;
-    private boolean placeBlocks = true;
-    private boolean dropItems = false;
-    private boolean cancelEvents = false;
+
+    private boolean breakBlocksEnabled, placeBlocksEnabled, dropItemsEnabled;
 
     public PlayerSelector(int id) {
         super("", 9, id);
@@ -51,37 +57,5 @@ public class PlayerSelector extends Menu {
         player.getInventory().clear();
         this.inventory = null;
         MenuManager.unregister(this);
-    }
-
-    public boolean canBreakBlocks() {
-        return breakBlocks;
-    }
-
-    public void setBreakBlocks(boolean breakBlocks) {
-        this.breakBlocks = breakBlocks;
-    }
-
-    public boolean canPlaceBlocks() {
-        return placeBlocks;
-    }
-
-    public void setPlaceBlocks(boolean placeBlocks) {
-        this.placeBlocks = placeBlocks;
-    }
-
-    public boolean canDropItems() {
-        return dropItems;
-    }
-
-    public void setDropItems(boolean dropItems) {
-        this.dropItems = dropItems;
-    }
-
-    public boolean isCancelEvents() {
-        return cancelEvents;
-    }
-
-    public void setCancelEvents(boolean cancelEvents) {
-        this.cancelEvents = cancelEvents;
     }
 }

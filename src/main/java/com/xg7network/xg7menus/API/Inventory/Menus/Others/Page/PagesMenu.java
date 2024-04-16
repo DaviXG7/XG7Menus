@@ -1,6 +1,7 @@
 package com.xg7network.xg7menus.API.Inventory.Menus.Others.Page;
 
-import com.xg7network.xg7menus.API.Inventory.Menus.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.InventoryItem;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -8,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class PagesMenu {
     private List<Page> pages = new ArrayList<>();
 
@@ -56,9 +58,5 @@ public class PagesMenu {
 
     public void open(Player player) {
         pages.get(0).open(player);
-    }
-
-    public List<Page> getPages() {
-        return pages;
     }
 }

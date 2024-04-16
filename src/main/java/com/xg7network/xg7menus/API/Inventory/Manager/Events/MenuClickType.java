@@ -1,8 +1,5 @@
 package com.xg7network.xg7menus.API.Inventory.Manager.Events;
 
-import org.bukkit.event.block.Action;
-import org.bukkit.event.inventory.ClickType;
-
 public enum MenuClickType {
 
     LEFT,
@@ -22,7 +19,7 @@ public enum MenuClickType {
     RIGHT_CLICK_BLOCK,
     LEFT_CLICK_AIR,
     RIGHT_CLICK_AIR,
-    PHYSICAL;
+    PHYSICAL
 
 
 

@@ -1,15 +1,16 @@
 package com.xg7network.xg7menus.API.Inventory.Menus.Others.Page;
 
-
-import com.xg7network.xg7menus.API.Inventory.Menus.Items.InventoryItem;
+import com.xg7network.xg7menus.API.Inventory.Menus.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
 import com.xg7network.xg7menus.API.Inventory.Menus.Others.StandardMenu;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
+@Getter
 public class Page extends StandardMenu {
 
     private PagesMenu menu;
@@ -50,18 +51,10 @@ public class Page extends StandardMenu {
                 this.inventory.setItem(item.getSlot(), item.getItemStack());
                 this.items.add(item);
             } else {
-                Bukkit.getLogger().severe("Items of page inventory only sopports slots 0 to 8 in the bottom of the page, the list of items will be on top.");
+                Bukkit.getLogger().severe("Items of page inventory only supports slots 0 to 8 in the bottom of the page, the list of items will be on top.");
                 return this;
             }
         }
         return this;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public PagesMenu getPageMenu() {
-        return menu;
     }
 }

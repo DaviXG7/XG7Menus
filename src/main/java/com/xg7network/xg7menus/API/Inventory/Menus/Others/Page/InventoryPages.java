@@ -1,14 +1,18 @@
 package com.xg7network.xg7menus.API.Inventory.Menus.Others.Page;
 
+import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
 import com.xg7network.xg7menus.API.Inventory.Menus.Others.StandardMenu;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
 public class InventoryPages {
 
-    private HashMap<String, StandardMenu> menus = new HashMap<>();
-    private StandardMenu inicialMenu;
+    private HashMap<String, Menu> menus = new HashMap<>();
+
+    @Getter
+    private Menu inicialMenu;
 
     public InventoryPages(String initialMenuTitle, int initialMenuSize, int initialMenuId) {
         this.inicialMenu = new StandardMenu(initialMenuTitle, initialMenuSize, initialMenuId);
@@ -23,15 +27,11 @@ public class InventoryPages {
         return this;
     }
 
-    public StandardMenu getPageByName(String name) {
+    public Menu getPageByName(String name) {
         return menus.get(name);
     }
 
     public void goTo(String name, Player player) {
         menus.get(name).open(player);
-    }
-
-    public StandardMenu getInicialMenu() {
-        return inicialMenu;
     }
 }
