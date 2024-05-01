@@ -1,10 +1,7 @@
 package com.xg7network.xg7menus;
 
-import com.xg7network.xg7menus.API.Inventory.Manager.Events.MenuClickEvent;
-import com.xg7network.xg7menus.API.Inventory.Manager.ItemsInventoryManager;
-import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
-import com.xg7network.xg7menus.API.Inventory.Menus.InventoryItem;
-import org.bukkit.Material;
+import com.xg7network.xg7menus.API.Inventory.Manager.Managers.ItemsInventoryManager;
+import com.xg7network.xg7menus.API.Inventory.Manager.Managers.MenuManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,7 +9,6 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class XG7Menus extends JavaPlugin implements Listener {
@@ -29,16 +25,6 @@ public final class XG7Menus extends JavaPlugin implements Listener {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-    }
-
-    @EventHandler
-    public void onMenuClick(MenuClickEvent event) {
-        if (event.getMenu().getId() == 1) {
-            if (event.getSlot() == 0) {
-                event.getMenu().updateItem(new InventoryItem(new ItemStack(Material.ACACIA_FENCE), 0));
-            }
-        }
-
     }
 
     @EventHandler

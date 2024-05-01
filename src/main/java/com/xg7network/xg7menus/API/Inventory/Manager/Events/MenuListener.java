@@ -1,6 +1,6 @@
 package com.xg7network.xg7menus.API.Inventory.Manager.Events;
 
-import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
+import com.xg7network.xg7menus.API.Inventory.Manager.Managers.MenuManager;
 import com.xg7network.xg7menus.API.Inventory.Menus.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
 import com.xg7network.xg7menus.API.Inventory.Menus.Others.PlayerSelector;
@@ -19,7 +19,7 @@ public class MenuListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
-        Menu menu = MenuManager.getMenuByInventory(event.getClickedInventory());
+        Menu menu = MenuManager.getMenu(event.getWhoClicked().getUniqueId());
         if (menu == null) return;
         event.setCancelled(true);
 
@@ -34,7 +34,7 @@ public class MenuListener implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        Menu menu = MenuManager.getMenuByInventory(player.getInventory());
+        Menu menu = MenuManager.getMenu(player.getUniqueId());
         if (menu == null) return;
         event.setCancelled(true);
 
@@ -47,18 +47,16 @@ public class MenuListener implements Listener {
     @EventHandler
     public void onClose(InventoryCloseEvent event) {
 
-        Menu menu = MenuManager.getMenuByInventory(event.getInventory());
+        if (MenuManager.getMenu((Player) event.getPlayer()) == null) return;
 
-        if (menu == null) return;
-
-        MenuManager.unregister(menu);
+        MenuManager.unregister((Player) event.getPlayer());
 
     }
 
     @EventHandler
     public void onBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
-        Menu menu = MenuManager.getMenuByInventory(player.getInventory());
+        Menu menu = MenuManager.getMenu(player);
 
         if (menu == null) return;
 
@@ -68,7 +66,7 @@ public class MenuListener implements Listener {
     @EventHandler
     public void onPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
-        Menu menu = MenuManager.getMenuByInventory(player.getInventory());
+        Menu menu = MenuManager.getMenu(player);
         if (menu == null) return;
 
         InventoryItem inventoryItem = menu.getItemBySlot(player.getInventory().getHeldItemSlot());
@@ -77,8 +75,7 @@ public class MenuListener implements Listener {
     @EventHandler
     public void onDrop(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
-        Menu menu = MenuManager.getMenuByInventory(player.getInventory());
-
+        Menu menu = MenuManager.getMenu(player);
         if (menu == null) return;
         InventoryItem inventoryItem = menu.getItemBySlot(player.getInventory().getHeldItemSlot());
         event.setCancelled(!((PlayerSelector) menu).isDropItemsEnabled() || inventoryItem != null);

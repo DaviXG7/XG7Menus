@@ -1,6 +1,6 @@
 package com.xg7network.xg7menus.API.Utils.Text;
 
-import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
+import com.xg7network.xg7menus.API.Inventory.Manager.Managers.MenuManager;
 import com.xg7network.xg7menus.API.Utils.NMSUtil;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatMessageType;
@@ -24,12 +24,8 @@ public class TextUtil {
 
     public static String get(String text, Player player) {
 
-        if (MenuManager.placeholderAPI) {
-            text = PlaceholderAPI.setPlaceholders(player, text);
-
-            text = Color.translateHexColor(text);
-
-        }
+        if (MenuManager.placeholderAPI) text = PlaceholderAPI.setPlaceholders(player, text);
+        text = Color.translateHexColor(text);
         return text.replace("&", "§");
 
     }
@@ -43,36 +39,31 @@ public class TextUtil {
     }
 
     public static void sendActionBar(String text, Player player) {
+        if (Integer.parseInt(Bukkit.getVersion().split("\\.")[1]) >= 13) {
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(get(text, player)));
+            return;
+        }
+        try {
 
-        String[] partes = Bukkit.getVersion().split("\\.");
-        if (partes.length >= 2) {
-            int vers = Integer.parseInt(partes[1]);
-            if (vers >= 13) {
-                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(get(text, player)));
-            } else {
-                try {
+            Class<?> craftPlayerClass = NMSUtil.getCraftBukkitClass("entity.CraftPlayer");
+            Object craftPlayer = craftPlayerClass.cast(player);
 
-                    Class<?> craftPlayerClass = NMSUtil.getCraftBukkitClass("entity.CraftPlayer");
-                    Object craftPlayer = craftPlayerClass.cast(player);
+            Class<?> packetPlayOutChatClass = NMSUtil.getNMSClass("PacketPlayOutChat");
+            Class<?> iChatBaseComponentClass = NMSUtil.getNMSClass("IChatBaseComponent");
+            Class<?> chatComponentTextClass = NMSUtil.getNMSClass("ChatComponentText");
 
-                    Class<?> packetPlayOutChatClass = NMSUtil.getNMSClass("PacketPlayOutChat");
-                    Class<?> iChatBaseComponentClass = NMSUtil.getNMSClass("IChatBaseComponent");
-                    Class<?> chatComponentTextClass = NMSUtil.getNMSClass("ChatComponentText");
+            Object chatComponent = chatComponentTextClass.getConstructor(String.class).newInstance(get(text, player));
+            Object packet = packetPlayOutChatClass.getConstructor(iChatBaseComponentClass, byte.class)
+                    .newInstance(chatComponent, (byte) 2);
 
-                    Object chatComponent = chatComponentTextClass.getConstructor(String.class).newInstance(get(text, player));
-                    Object packet = packetPlayOutChatClass.getConstructor(iChatBaseComponentClass, byte.class)
-                            .newInstance(chatComponent, (byte) 2);
+            Object craftPlayerHandle = craftPlayerClass.getMethod("getHandle").invoke(craftPlayer);
+            Object playerConnection = craftPlayerHandle.getClass().getField("playerConnection").get(craftPlayerHandle);
 
-                    Object craftPlayerHandle = craftPlayerClass.getMethod("getHandle").invoke(craftPlayer);
-                    Object playerConnection = craftPlayerHandle.getClass().getField("playerConnection").get(craftPlayerHandle);
+            playerConnection.getClass().getMethod("sendPacket", NMSUtil.getNMSClass("Packet")).invoke(playerConnection, packet);
 
-                    playerConnection.getClass().getMethod("sendPacket", NMSUtil.getNMSClass("Packet")).invoke(playerConnection, packet);
-
-                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
-                         NoSuchFieldException | InvocationTargetException | NoSuchMethodException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
+                 NoSuchFieldException | InvocationTargetException | NoSuchMethodException e) {
+            throw new RuntimeException(e);
         }
 
     }

@@ -16,13 +16,13 @@ public class Page extends StandardMenu {
     private PagesMenu menu;
     private int index;
 
-    public Page(String title, PagesMenu menu, int index, int id) {
+    public Page(String title, PagesMenu menu, int index, String id) {
         super(title.replace("%page%", index + 1 + ""), 54, id);
         this.menu = menu;
         this.index = index;
     }
 
-    public Page(String title, Player player, PagesMenu menu, int index, int id) {
+    public Page(String title, Player player, PagesMenu menu, int index, String id) {
         super(title.replace("%page%", index + 1 + ""), 54, player, id);
         this.menu = menu;
         this.index = index;

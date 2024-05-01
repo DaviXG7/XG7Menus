@@ -13,7 +13,7 @@ import java.util.List;
 public class PagesMenu {
     private List<Page> pages = new ArrayList<>();
 
-    public PagesMenu(List<ItemStack> itemStacks, String title, int pagesId) {
+    public PagesMenu(List<ItemStack> itemStacks, String title, String pagesId) {
         List<ItemStack> stackList = new ArrayList<>(itemStacks);
         int index = 0;
         while (!stackList.isEmpty()) {

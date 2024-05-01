@@ -33,7 +33,7 @@ public class InventoryItem {
     @Setter
     private int slot;
     protected ItemStack itemStack;
-    private int id;
+    private String id;
 
     // Constructor
     public InventoryItem(ItemStack itemStack, int slot) {
@@ -66,7 +66,7 @@ public class InventoryItem {
         return this;
     }
 
-    public InventoryItem setId(int id) {
+    public InventoryItem setId(String id) {
         this.id = id;
         return this;
     }

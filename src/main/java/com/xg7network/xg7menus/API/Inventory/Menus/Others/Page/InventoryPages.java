@@ -14,11 +14,11 @@ public class InventoryPages {
     @Getter
     private Menu inicialMenu;
 
-    public InventoryPages(String initialMenuTitle, int initialMenuSize, int initialMenuId) {
+    public InventoryPages(String initialMenuTitle, int initialMenuSize, String initialMenuId) {
         this.inicialMenu = new StandardMenu(initialMenuTitle, initialMenuSize, initialMenuId);
     }
 
-    public InventoryPages(String initialMenuTitle, int initialMenuSize, Player player, int initialMenuId) {
+    public InventoryPages(String initialMenuTitle, int initialMenuSize, Player player, String initialMenuId) {
         this.inicialMenu = new StandardMenu(initialMenuTitle, initialMenuSize, player, initialMenuId);
     }
 

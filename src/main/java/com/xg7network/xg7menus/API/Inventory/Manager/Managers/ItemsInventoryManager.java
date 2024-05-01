@@ -1,4 +1,4 @@
-package com.xg7network.xg7menus.API.Inventory.Manager;
+package com.xg7network.xg7menus.API.Inventory.Manager.Managers;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;

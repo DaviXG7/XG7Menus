@@ -1,14 +1,12 @@
 package com.xg7network.xg7menus.API.Inventory.Menus.Others;
 
 
-import com.xg7network.xg7menus.API.Inventory.Manager.MenuManager;
+import com.xg7network.xg7menus.API.Inventory.Manager.Managers.MenuManager;
 import com.xg7network.xg7menus.API.Inventory.Menus.InventoryItem;
 import com.xg7network.xg7menus.API.Inventory.Menus.Menu;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -17,13 +15,9 @@ import java.util.Arrays;
 @Setter
 public class PlayerSelector extends Menu {
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    private ItemStack[] playerItemsStack;
-
     private boolean breakBlocksEnabled, placeBlocksEnabled, dropItemsEnabled;
 
-    public PlayerSelector(int id) {
+    public PlayerSelector(String id) {
         super("", 9, id);
         this.inventory = null;
     }
@@ -37,7 +31,6 @@ public class PlayerSelector extends Menu {
     @Override
     public void open(@NotNull Player player) {
 
-        this.playerItemsStack = player.getInventory().getContents();
         player.getInventory().clear();
 
         for (InventoryItem inventoryItem : this.items) {
@@ -47,10 +40,6 @@ public class PlayerSelector extends Menu {
 
         this.inventory = player.getInventory();
         MenuManager.register(this);
-    }
-
-    public void giveBackItems(@NotNull Player player) {
-        player.getInventory().setContents(playerItemsStack);
     }
 
     public void removeItems(@NotNull Player player) {

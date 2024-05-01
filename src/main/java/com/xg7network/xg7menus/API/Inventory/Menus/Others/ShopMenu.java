@@ -7,10 +7,10 @@ import java.util.List;
 
 public class ShopMenu extends StandardMenu {
     private HashMap<Integer, List<Object>> requeriments = new HashMap<>();
-    public ShopMenu(String title, int size, int id) {
+    public ShopMenu(String title, int size, String id) {
         super(title, size, id);
     }
-    public ShopMenu(String title, int size, Player player, int id) {
+    public ShopMenu(String title, int size, Player player, String id) {
         super(title, size, player, id);
     }
 

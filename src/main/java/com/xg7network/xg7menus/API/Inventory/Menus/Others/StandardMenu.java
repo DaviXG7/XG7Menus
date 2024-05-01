@@ -8,11 +8,11 @@ import org.bukkit.entity.Player;
 
 public class StandardMenu extends Menu {
 
-    public StandardMenu(String title, int size, int id) {
+    public StandardMenu(String title, int size, String id) {
         super(title, size, id);
     }
 
-    public StandardMenu(String title, int size, Player player, int id) {
+    public StandardMenu(String title, int size, Player player, String id) {
         super(title, size, player, id);
     }
 
