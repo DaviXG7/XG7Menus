@@ -39,12 +39,12 @@ public class PlayerSelector extends Menu {
         }
 
         this.inventory = player.getInventory();
-        MenuManager.register(this);
+        MenuManager.register(player, this);
     }
 
     public void removeItems(@NotNull Player player) {
         player.getInventory().clear();
         this.inventory = null;
-        MenuManager.unregister(this);
+        MenuManager.unregister(player);
     }
 }

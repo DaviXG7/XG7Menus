@@ -35,6 +35,15 @@ public abstract class Menu {
         }
         return this;
     }
+    public Menu addItems(Player player, InventoryItem... items) {
+        for (InventoryItem item : items) {
+            if (item.getSlot() < 0) continue;
+            item.setPlaceholders(player);
+            this.inventory.setItem(item.getSlot(), item.getItemStack());
+            this.items.add(item);
+        }
+        return this;
+    }
     public Menu addNoListedItem(ItemStack item, int slot) {
         this.inventory.setItem(slot, item);
         return this;
@@ -66,7 +75,7 @@ public abstract class Menu {
     }
 
     public void open(Player player) {
-        MenuManager.register(this);
+        MenuManager.register(player, this);
         player.openInventory(inventory);
     }
 
