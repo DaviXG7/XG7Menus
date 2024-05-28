@@ -53,7 +53,7 @@ public abstract class Menu {
     public Menu updateItem(InventoryItem item) {
         InventoryItem itemChose = null;
         for (InventoryItem item1 : this.items) {
-            if (item1.getSlot() == item1.getSlot()) {
+            if (item1.getSlot() == item.getSlot()) {
                 itemChose = item1;
                 break;
             }
