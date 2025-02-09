@@ -1,10 +1,9 @@
-package com.xg7plugins.temp.xg7menus.menus.holders;
+package com.xg7plugins.extension.menus.holders;
 
 import com.xg7plugins.boot.Plugin;
-import com.xg7plugins.temp.xg7menus.menus.BaseMenu;
+import com.xg7plugins.extension.menus.BaseMenu;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.jetbrains.annotations.NotNull;
 
 public class PlayerMenuHolder extends MenuHolder {
 
@@ -16,7 +15,7 @@ public class PlayerMenuHolder extends MenuHolder {
     }
 
     @Override
-    public @NotNull Inventory getInventory() {
+    public Inventory getInventory() {
         return player.getInventory();
     }
 }

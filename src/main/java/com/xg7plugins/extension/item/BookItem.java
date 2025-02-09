@@ -1,15 +1,10 @@
-package com.xg7plugins.temp.xg7menus.item;
+package com.xg7plugins.extension.item;
 
+import com.github.retrooper.packetevents.PacketEvents;
+import com.github.retrooper.packetevents.protocol.player.InteractionHand;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerOpenBook;
 import com.xg7plugins.XG7Plugins;
-import com.xg7plugins.utils.reflection.ReflectionClass;
-import com.xg7plugins.utils.reflection.nms.NMSUtil;
-import com.xg7plugins.utils.reflection.nms.Packet;
-import com.xg7plugins.utils.reflection.nms.PacketClass;
-import com.xg7plugins.utils.reflection.nms.PlayerNMS;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import lombok.SneakyThrows;
-import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -17,17 +12,6 @@ import org.bukkit.inventory.meta.BookMeta;
 
 public class BookItem extends Item {
 
-    private static PacketClass packetPlayOutCustomPayloadClass;
-
-    private static ReflectionClass packetDataSerializerClass;
-
-    static {
-            if (XG7Plugins.getMinecraftVersion() < 14) {
-
-                packetPlayOutCustomPayloadClass = new PacketClass("PacketPlayOutCustomPayload");
-                packetDataSerializerClass = NMSUtil.getNMSClass("PacketDataSerializer");
-            }
-    }
 
     public BookItem() {
         super(new ItemStack(Material.WRITTEN_BOOK));
@@ -67,22 +51,6 @@ public class BookItem extends Item {
         super.meta(meta);
         return this;
     }
-    public BookItem addPage(BaseComponent[] components) {
-
-        try {
-            BookMeta meta = (BookMeta) this.itemStack.getItemMeta();
-            meta.spigot().addPage(components);
-            super.meta(meta);
-            return this;
-        } catch (Exception ignored) {
-            if (XG7Plugins.getMinecraftVersion() < 8) {
-                XG7Plugins.getInstance().getLog().warn("Books with base component is not supported on this version!");
-                return this;
-            }
-        }
-
-        return this;
-    }
 
     @SneakyThrows
     public void openBook(Player player) {
@@ -92,22 +60,13 @@ public class BookItem extends Item {
             return;
         }
 
-        if (XG7Plugins.getMinecraftVersion() < 8) {
-            XG7Plugins.getInstance().getLog().warn("Books is not supported on version under of 1.8!");
-            return;
-        }
-
         int slot = player.getInventory().getHeldItemSlot();
         ItemStack old = player.getInventory().getItem(slot);
         player.getInventory().setItem(slot, this.itemStack);
 
-        ByteBuf buf = Unpooled.buffer(256);
-        buf.setByte(0, 0);
-        buf.writerIndex(1);
+        WrapperPlayServerOpenBook wrapper = new WrapperPlayServerOpenBook(InteractionHand.MAIN_HAND);
 
-        Packet packet = new Packet(packetPlayOutCustomPayloadClass, "MC|BOpen", packetDataSerializerClass.getConstructor(ByteBuf.class).newInstance(buf).getObject());
-
-        PlayerNMS.cast(player).sendPacket(packet);
+        PacketEvents.getAPI().getPlayerManager().sendPacket(player, wrapper);
 
         player.getInventory().setItem(slot, old);
     }

@@ -1,8 +1,8 @@
-package com.xg7plugins.temp.xg7menus.menus.gui;
+package com.xg7plugins.extension.menus.gui;
 
 import com.xg7plugins.boot.Plugin;
-import com.xg7plugins.temp.xg7menus.menus.BaseMenu;
-import com.xg7plugins.temp.xg7menus.menus.holders.MenuHolder;
+import com.xg7plugins.extension.menus.BaseMenu;
+import com.xg7plugins.extension.menus.holders.MenuHolder;
 import com.xg7plugins.utils.text.Text;
 import com.xg7plugins.utils.text.TextCentralizer;
 import org.bukkit.Bukkit;
@@ -32,7 +32,7 @@ public abstract class Menu extends BaseMenu {
     public void open(Player player) {
         player.closeInventory();
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            MenuHolder holder = new MenuHolder(id, plugin, Text.detectLangOrText(plugin, player, title).join().getTextCentralized(TextCentralizer.PixelsSize.INV), size, type, this, player);
+            MenuHolder holder = new MenuHolder(id, plugin, Text.detectLangs(player, plugin,title).join().verifyCentralized(TextCentralizer.PixelsSize.INV).getText(), size, type, this, player);
             player.openInventory(holder.getInventory());
             putItems(player, holder);
         }, 1L);

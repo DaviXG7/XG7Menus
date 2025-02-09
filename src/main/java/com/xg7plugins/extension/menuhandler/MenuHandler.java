@@ -1,13 +1,13 @@
-package com.xg7plugins.temp.xg7menus.menuhandler;
+package com.xg7plugins.extension.menuhandler;
 
 import com.xg7plugins.events.Listener;
 import com.xg7plugins.events.bukkitevents.EventHandler;
-import com.xg7plugins.temp.xg7menus.MenuPrevents;
-import com.xg7plugins.temp.xg7menus.events.ClickEvent;
-import com.xg7plugins.temp.xg7menus.events.DragEvent;
-import com.xg7plugins.temp.xg7menus.events.MenuEvent;
-import com.xg7plugins.temp.xg7menus.item.Item;
-import com.xg7plugins.temp.xg7menus.menus.holders.MenuHolder;
+import com.xg7plugins.extension.MenuPermissions;
+import com.xg7plugins.extension.events.ClickEvent;
+import com.xg7plugins.extension.events.DragEvent;
+import com.xg7plugins.extension.events.MenuEvent;
+import com.xg7plugins.extension.item.Item;
+import com.xg7plugins.extension.menus.holders.MenuHolder;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -63,7 +63,7 @@ public class MenuHandler implements Listener {
 
             MenuHolder holder = (MenuHolder) inventory.getHolder();
 
-            event.setCancelled(holder.getMenu().getMenuPrevents().contains(MenuPrevents.CLICK));
+            event.setCancelled(!holder.getMenu().getMenuPermissions().contains(MenuPermissions.CLICK));
 
             ClickEvent clickEvent = new ClickEvent(holder.getPlayer(), MenuEvent.ClickAction.valueOf(event.getClick().name()), holder, event.getSlot(), event.getRawSlot(), Item.from(event.getCurrentItem()), null);
             if (holder.getUpdatedClickEvents().containsKey(event.getSlot())) {
@@ -86,10 +86,10 @@ public class MenuHandler implements Listener {
 
             MenuHolder holder = (MenuHolder) inventory.getHolder();
 
-            event.setCancelled(holder.getMenu().getMenuPrevents().contains(MenuPrevents.DRAG));
+            event.setCancelled(!holder.getMenu().getMenuPermissions().contains(MenuPermissions.DRAG));
             DragEvent dragEvent = new DragEvent(holder.getPlayer(), holder, event.getNewItems().entrySet().stream().map(entry -> new Item(entry.getValue()).slot(entry.getKey())).collect(Collectors.toList()), event.getInventorySlots(),event.getRawSlots());
 
-            holder.getMenu().onClick(dragEvent);
+            holder.getMenu().onDrag(dragEvent);
 
         }
     }

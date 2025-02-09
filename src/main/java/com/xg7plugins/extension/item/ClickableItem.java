@@ -1,6 +1,6 @@
-package com.xg7plugins.temp.xg7menus.item;
+package com.xg7plugins.extension.item;
 
-import com.xg7plugins.temp.xg7menus.events.ClickEvent;
+import com.xg7plugins.extension.events.ClickEvent;
 import lombok.Getter;
 import org.bukkit.inventory.ItemStack;
 

@@ -1,15 +1,14 @@
-package com.xg7plugins.temp.xg7menus.menus.holders;
+package com.xg7plugins.extension.menus.holders;
 
 import com.xg7plugins.boot.Plugin;
-import com.xg7plugins.temp.xg7menus.events.ClickEvent;
-import com.xg7plugins.temp.xg7menus.menus.BaseMenu;
+import com.xg7plugins.extension.events.ClickEvent;
+import com.xg7plugins.extension.menus.BaseMenu;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.function.Consumer;
@@ -32,7 +31,6 @@ public class MenuHolder implements InventoryHolder {
         this.player = player;
     }
 
-    @NotNull
     @Override
     public Inventory getInventory() {
         return inventory;

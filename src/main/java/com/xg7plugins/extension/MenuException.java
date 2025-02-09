@@ -1,4 +1,4 @@
-package com.xg7plugins.temp.xg7menus;
+package com.xg7plugins.extension;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

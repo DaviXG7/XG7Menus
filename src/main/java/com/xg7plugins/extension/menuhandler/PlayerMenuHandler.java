@@ -1,15 +1,15 @@
-package com.xg7plugins.temp.xg7menus.menuhandler;
+package com.xg7plugins.extension.menuhandler;
 
 import com.xg7plugins.events.Listener;
 import com.xg7plugins.events.bukkitevents.EventHandler;
-import com.xg7plugins.temp.xg7menus.MenuManager;
-import com.xg7plugins.temp.xg7menus.MenuPrevents;
-import com.xg7plugins.temp.xg7menus.events.ClickEvent;
-import com.xg7plugins.temp.xg7menus.events.DragEvent;
-import com.xg7plugins.temp.xg7menus.events.MenuEvent;
-import com.xg7plugins.temp.xg7menus.item.Item;
-import com.xg7plugins.temp.xg7menus.menus.holders.PlayerMenuHolder;
-import com.xg7plugins.temp.xg7menus.menus.player.PlayerMenu;
+import com.xg7plugins.extension.MenuPermissions;
+import com.xg7plugins.extension.XG7MenusExtension;
+import com.xg7plugins.extension.events.ClickEvent;
+import com.xg7plugins.extension.events.DragEvent;
+import com.xg7plugins.extension.events.MenuEvent;
+import com.xg7plugins.extension.item.Item;
+import com.xg7plugins.extension.menus.holders.PlayerMenuHolder;
+import com.xg7plugins.extension.menus.player.PlayerMenu;
 import lombok.AllArgsConstructor;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -25,8 +25,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class PlayerMenuHandler implements Listener {
 
-    private final MenuManager menuManager;
-
     @Override
     public boolean isEnabled() {
         return true;
@@ -34,11 +32,11 @@ public class PlayerMenuHandler implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
-        if (menuManager.hasPlayerMenu(event.getPlayer().getUniqueId())) {
+        if (XG7MenusExtension.getInstance().hasPlayerMenuHolder(event.getPlayer().getUniqueId())) {
 
-            PlayerMenuHolder holder = menuManager.getPlayerMenusMap().get(event.getPlayer().getUniqueId());
+            PlayerMenuHolder holder = XG7MenusExtension.getInstance().getPlayerMenuHolder(event.getPlayer().getUniqueId());
 
-            event.setCancelled(holder.getMenu().getMenuPrevents().contains(MenuPrevents.PLAYER_INTERACT));
+            event.setCancelled(!holder.getMenu().getMenuPermissions().contains(MenuPermissions.PLAYER_INTERACT));
 
             int slot = event.getPlayer().getInventory().getHeldItemSlot();
 
@@ -56,11 +54,11 @@ public class PlayerMenuHandler implements Listener {
 
     @EventHandler
     public void onPlayerMenuClick(InventoryClickEvent event) {
-        if (menuManager.hasPlayerMenu(event.getWhoClicked().getUniqueId()) && event.getInventory() instanceof PlayerInventory) {
+        if (XG7MenusExtension.getInstance().hasPlayerMenuHolder(event.getWhoClicked().getUniqueId()) && event.getInventory() instanceof PlayerInventory) {
 
-            PlayerMenuHolder holder = menuManager.getPlayerMenusMap().get(event.getWhoClicked().getUniqueId());
+            PlayerMenuHolder holder = XG7MenusExtension.getInstance().getPlayerMenuHolder(event.getWhoClicked().getUniqueId());
 
-            event.setCancelled(holder.getMenu().getMenuPrevents().contains(MenuPrevents.CLICK));
+            event.setCancelled(!holder.getMenu().getMenuPermissions().contains(MenuPermissions.CLICK));
 
             ClickEvent clickEvent = new ClickEvent(holder.getPlayer(), MenuEvent.ClickAction.valueOf(event.getClick().name()), holder, event.getSlot(), event.getRawSlot(), Item.from(event.getCurrentItem()), null);
             if (holder.getUpdatedClickEvents().containsKey(event.getSlot())) {
@@ -76,14 +74,15 @@ public class PlayerMenuHandler implements Listener {
 
     @EventHandler
     public void onDrag(InventoryDragEvent event) {
-        if (menuManager.hasPlayerMenu(event.getWhoClicked().getUniqueId()) && event.getInventory() instanceof PlayerInventory) {
+        if (XG7MenusExtension.getInstance().hasPlayerMenuHolder(event.getWhoClicked().getUniqueId()) && event.getInventory() instanceof PlayerInventory) {
 
-            PlayerMenuHolder holder = menuManager.getPlayerMenusMap().get(event.getWhoClicked().getUniqueId());
+            PlayerMenuHolder holder = XG7MenusExtension.getInstance().getPlayerMenuHolder(event.getWhoClicked().getUniqueId());
 
-            event.setCancelled(holder.getMenu().getMenuPrevents().contains(MenuPrevents.DRAG));
+            event.setCancelled(!holder.getMenu().getMenuPermissions().contains(MenuPermissions.DRAG));
+
             DragEvent dragEvent = new DragEvent(holder.getPlayer(), holder, event.getNewItems().entrySet().stream().map(entry -> new Item(entry.getValue()).slot(entry.getKey())).collect(Collectors.toList()), event.getInventorySlots(),event.getRawSlots());
 
-            holder.getMenu().onClick(dragEvent);
+            holder.getMenu().onDrag(dragEvent);
 
             if (dragEvent.isCancelled()) event.setCancelled(true);
 
@@ -92,11 +91,11 @@ public class PlayerMenuHandler implements Listener {
 
     @EventHandler
     public void onDrop(PlayerDropItemEvent event) {
-        if (menuManager.hasPlayerMenu(event.getPlayer().getUniqueId())) {
+        if (XG7MenusExtension.getInstance().hasPlayerMenuHolder(event.getPlayer().getUniqueId())) {
 
-            PlayerMenuHolder holder = menuManager.getPlayerMenusMap().get(event.getPlayer().getUniqueId());
+            PlayerMenuHolder holder = XG7MenusExtension.getInstance().getPlayerMenuHolder(event.getPlayer().getUniqueId());
 
-            event.setCancelled(holder.getMenu().getMenuPrevents().contains(MenuPrevents.PLAYER_DROP));
+            event.setCancelled(!holder.getMenu().getMenuPermissions().contains(MenuPermissions.PLAYER_DROP));
 
             MenuEvent menuEvent = new MenuEvent(event.getPlayer(), MenuEvent.ClickAction.KEYBOARD, holder, null);
 
@@ -108,11 +107,11 @@ public class PlayerMenuHandler implements Listener {
 
     @EventHandler
     public void onPickUp(PlayerPickupItemEvent event) {
-        if (menuManager.hasPlayerMenu(event.getPlayer().getUniqueId())) {
+        if (XG7MenusExtension.getInstance().hasPlayerMenuHolder(event.getPlayer().getUniqueId())) {
 
-            PlayerMenuHolder holder = menuManager.getPlayerMenusMap().get(event.getPlayer().getUniqueId());
+            PlayerMenuHolder holder = XG7MenusExtension.getInstance().getPlayerMenuHolder(event.getPlayer().getUniqueId());
 
-            event.setCancelled(holder.getMenu().getMenuPrevents().contains(MenuPrevents.PLAYER_PICKUP));
+            event.setCancelled(!holder.getMenu().getMenuPermissions().contains(MenuPermissions.PLAYER_PICKUP));
 
             MenuEvent menuEvent = new MenuEvent(event.getPlayer(), MenuEvent.ClickAction.KEYBOARD, holder, null);
 
@@ -125,11 +124,11 @@ public class PlayerMenuHandler implements Listener {
 
     @EventHandler
     public void onBreakBlocks(BlockBreakEvent event) {
-        if (menuManager.hasPlayerMenu(event.getPlayer().getUniqueId())) {
+        if (XG7MenusExtension.getInstance().hasPlayerMenuHolder(event.getPlayer().getUniqueId())) {
 
-            PlayerMenuHolder holder = menuManager.getPlayerMenusMap().get(event.getPlayer().getUniqueId());
+            PlayerMenuHolder holder = XG7MenusExtension.getInstance().getPlayerMenuHolder(event.getPlayer().getUniqueId());
 
-            event.setCancelled(holder.getMenu().getMenuPrevents().contains(MenuPrevents.PLAYER_BREAK_BLOCKS));
+            event.setCancelled(!holder.getMenu().getMenuPermissions().contains(MenuPermissions.PLAYER_BREAK_BLOCKS));
 
             MenuEvent menuEvent = new MenuEvent(event.getPlayer(), MenuEvent.ClickAction.KEYBOARD, holder, null);
 
@@ -141,11 +140,11 @@ public class PlayerMenuHandler implements Listener {
 
     @EventHandler
     public void onPlaceBlocks(BlockPlaceEvent event) {
-        if (menuManager.hasPlayerMenu(event.getPlayer().getUniqueId())) {
+        if (XG7MenusExtension.getInstance().hasPlayerMenuHolder(event.getPlayer().getUniqueId())) {
 
-            PlayerMenuHolder holder = menuManager.getPlayerMenusMap().get(event.getPlayer().getUniqueId());
+            PlayerMenuHolder holder = XG7MenusExtension.getInstance().getPlayerMenuHolder(event.getPlayer().getUniqueId());
 
-            event.setCancelled(holder.getMenu().getMenuPrevents().contains(MenuPrevents.PLAYER_PLACE_BLOCKS));
+            event.setCancelled(!holder.getMenu().getMenuPermissions().contains(MenuPermissions.PLAYER_PLACE_BLOCKS));
 
             MenuEvent menuEvent = new MenuEvent(event.getPlayer(), MenuEvent.ClickAction.KEYBOARD, holder, null);
 

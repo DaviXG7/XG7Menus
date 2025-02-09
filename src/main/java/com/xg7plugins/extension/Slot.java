@@ -1,12 +1,12 @@
-package com.xg7plugins.temp.xg7menus;
+package com.xg7plugins.extension;
 
 import lombok.Getter;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import lombok.ToString;
 
 import java.util.List;
 
 @Getter
+@ToString
 public class Slot {
     private final int row;
     private final int column;
@@ -21,17 +21,14 @@ public class Slot {
     public int get() {
         return 9 * row - (9 - column) - 1;
     }
-    @Contract("_ -> new")
-    public static @NotNull Slot fromSlot(int slot) {
+    public static Slot fromSlot(int slot) {
         if (slot == 0) return new Slot(1, 1);
         return new Slot((int) Math.ceil((double) slot / 9), slot % 9 == 0 ? 9 : slot % 9);
     }
-    @Contract("_, _ -> new")
-    public static @NotNull Slot of(int row, int column) {
+    public static Slot of(int row, int column) {
         return new Slot(row, column);
     }
-    @Contract("_ -> new")
-    public static @NotNull Slot fromList(@NotNull List<Integer> list) {
+    public static Slot fromList(List<Integer> list) {
         return new Slot(list.get(0), list.get(1));
     }
 

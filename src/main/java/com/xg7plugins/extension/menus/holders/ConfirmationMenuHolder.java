@@ -1,12 +1,11 @@
-package com.xg7plugins.temp.xg7menus.menus.holders;
+package com.xg7plugins.extension.menus.holders;
 
 import com.xg7plugins.boot.Plugin;
-import com.xg7plugins.temp.xg7menus.menus.BaseMenu;
+import com.xg7plugins.extension.menus.BaseMenu;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
-import org.jetbrains.annotations.NotNull;
 
 @Getter
 public class ConfirmationMenuHolder extends MenuHolder {
@@ -15,7 +14,6 @@ public class ConfirmationMenuHolder extends MenuHolder {
         super(id, plugin, title, size, type, menu, player);
     }
 
-    @NotNull
     @Override
     public Inventory getInventory() {
         return inventory;

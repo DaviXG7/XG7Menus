@@ -1,10 +1,11 @@
-package com.xg7plugins.temp.xg7menus.builders;
+package com.xg7plugins.extension.builders;
 
 import com.xg7plugins.boot.Plugin;
-import com.xg7plugins.temp.xg7menus.MenuPrevents;
-import com.xg7plugins.temp.xg7menus.events.MenuEvent;
-import com.xg7plugins.temp.xg7menus.item.Item;
-import com.xg7plugins.temp.xg7menus.menus.simple.SimplePlayerMenu;
+import com.xg7plugins.extension.MenuPermissions;
+import com.xg7plugins.extension.events.MenuEvent;
+import com.xg7plugins.extension.item.Item;
+import com.xg7plugins.extension.menus.player.PlayerMenuMessages;
+import com.xg7plugins.extension.menus.simple.SimplePlayerMenu;
 import com.xg7plugins.utils.Builder;
 
 import java.util.ArrayList;
@@ -20,12 +21,19 @@ public class PlayerMenuBuilder<M extends SimplePlayerMenu> implements Builder<M>
     private List<Item> items = new ArrayList<>();
     private Consumer<MenuEvent> onOpen;
     private Consumer<MenuEvent> onClose;
-    private Set<MenuPrevents> prevents;
+    private Set<MenuPermissions> permissions;
     private boolean keepOldItems;
+    private PlayerMenuMessages messages;
 
     public PlayerMenuBuilder(String id, Plugin plugin) {
         this.id = id;
         this.plugin = plugin;
+        this.messages = new PlayerMenuMessages() {};
+    }
+
+    public PlayerMenuBuilder messages(PlayerMenuMessages messages) {
+        this.messages = messages;
+        return this;
     }
 
     public PlayerMenuBuilder items(List<Item> items) {
@@ -52,18 +60,18 @@ public class PlayerMenuBuilder<M extends SimplePlayerMenu> implements Builder<M>
         return this;
     }
 
-    public PlayerMenuBuilder prevents(Set<MenuPrevents> prevents) {
-        this.prevents = prevents;
+    public PlayerMenuBuilder prevents(Set<MenuPermissions> permissions) {
+        this.permissions = permissions;
         return this;
     }
 
-    public PlayerMenuBuilder prevent(MenuPrevents prevent) {
-        this.prevents.add(prevent);
+    public PlayerMenuBuilder prevent(MenuPermissions permission) {
+        this.permissions.add(permission);
         return this;
     }
 
-    public PlayerMenuBuilder prevent(MenuPrevents... prevents) {
-        this.prevents.addAll(Arrays.asList(prevents));
+    public PlayerMenuBuilder prevent(MenuPermissions... permissions) {
+        this.permissions.addAll(Arrays.asList(permissions));
         return this;
     }
 
@@ -78,6 +86,6 @@ public class PlayerMenuBuilder<M extends SimplePlayerMenu> implements Builder<M>
 
     @Override
     public M build(Object... args) {
-        return (M) new SimplePlayerMenu(plugin, id, keepOldItems, items, onOpen, onClose, prevents);
+        return (M) new SimplePlayerMenu(plugin, id, keepOldItems, items, onOpen, onClose, permissions,messages);
     }
 }

@@ -3,6 +3,8 @@ package com.xg7plugins.extension;
 import com.xg7plugins.XG7Plugins;
 import com.xg7plugins.boot.Plugin;
 import com.xg7plugins.events.Listener;
+import com.xg7plugins.extension.menuhandler.MenuHandler;
+import com.xg7plugins.extension.menuhandler.PlayerMenuHandler;
 import com.xg7plugins.extension.menus.BaseMenu;
 import com.xg7plugins.extension.menus.holders.PlayerMenuHolder;
 import com.xg7plugins.extension.menus.player.PlayerMenu;
@@ -11,15 +13,13 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.lang.reflect.Array;
+import java.util.*;
 
-public class XG7Menus implements Extension {
+public class XG7MenusExtension implements Extension {
 
     @Getter
-    private static XG7Menus instance;
+    private static XG7MenusExtension instance;
 
     private final HashMap<UUID, PlayerMenuHolder> playerMenusMap = new HashMap<>();
     private final HashMap<String, BaseMenu> registeredMenus = new HashMap<>();
@@ -35,7 +35,7 @@ public class XG7Menus implements Extension {
     }
 
     public List<Listener> loadListeners() {
-        return Collections.emptyList();
+        return Arrays.asList(new MenuHandler(), new PlayerMenuHandler());
     }
 
     @Override
@@ -59,6 +59,7 @@ public class XG7Menus implements Extension {
     public void registerMenus(BaseMenu... menus) {
         if (menus == null) return;
         for (BaseMenu menu : menus) {
+            getPlugin().getDebug().loading("Registering menu " + menu.getId());
             registeredMenus.put(menu.getPlugin().getName() + ":" + menu.getId(), menu);
         }
     }
@@ -67,13 +68,17 @@ public class XG7Menus implements Extension {
     }
 
     public void registerPlayerMenuHolder(UUID playerId, PlayerMenuHolder holder) {
+        getPlugin().getDebug().info("menus", "Registering player menu holder for " + playerId);
         playerMenusMap.put(playerId, holder);
     }
 
     public void removePlayerMenuHolder(UUID playerId) {
+        getPlugin().getDebug().info("menus", "Removing player menu holder for " + playerId);
         playerMenusMap.remove(playerId);
     }
+
     public <T extends PlayerMenuHolder> T getPlayerMenuHolder(UUID playerId) {
+        getPlugin().getDebug().info("menus", "Getting player menu holder for " + playerId);
         return (T) playerMenusMap.get(playerId);
     }
 

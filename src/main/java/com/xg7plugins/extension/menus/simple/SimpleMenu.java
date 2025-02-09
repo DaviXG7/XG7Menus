@@ -1,10 +1,10 @@
-package com.xg7plugins.temp.xg7menus.menus.simple;
+package com.xg7plugins.extension.menus.simple;
 
 import com.xg7plugins.boot.Plugin;
-import com.xg7plugins.temp.xg7menus.MenuPrevents;
-import com.xg7plugins.temp.xg7menus.events.MenuEvent;
-import com.xg7plugins.temp.xg7menus.item.Item;
-import com.xg7plugins.temp.xg7menus.menus.gui.Menu;
+import com.xg7plugins.extension.MenuPermissions;
+import com.xg7plugins.extension.menus.gui.Menu;
+import com.xg7plugins.extension.events.MenuEvent;
+import com.xg7plugins.extension.item.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 
@@ -18,20 +18,20 @@ public class SimpleMenu extends Menu {
     private Consumer<MenuEvent> onOpen;
     private Consumer<MenuEvent> onClose;
 
-    public SimpleMenu(Plugin plugin, String id, String title, InventoryType type, List<Item> items, Consumer<MenuEvent> onOpen, Consumer<MenuEvent> onClose, Set<MenuPrevents> prevents) {
+    public SimpleMenu(Plugin plugin, String id, String title, InventoryType type, List<Item> items, Consumer<MenuEvent> onOpen, Consumer<MenuEvent> onClose, Set<MenuPermissions> permissions) {
         super(plugin, id, title, type);
         this.items = items;
         this.onOpen = onOpen;
         this.onClose = onClose;
-        if (prevents != null) setMenuPrevents(prevents);
+        if (permissions != null) setMenuPermissions(permissions);
     }
 
-    public SimpleMenu(Plugin plugin, String id, String title, int size, List<Item> items, Consumer<MenuEvent> onOpen, Consumer<MenuEvent> onClose, Set<MenuPrevents> prevents) {
+    public SimpleMenu(Plugin plugin, String id, String title, int size, List<Item> items, Consumer<MenuEvent> onOpen, Consumer<MenuEvent> onClose, Set<MenuPermissions> permissions) {
         super(plugin, id, title, size);
         this.items = items;
         this.onOpen = onOpen;
         this.onClose = onClose;
-        if (prevents != null) setMenuPrevents(prevents);
+        if (permissions != null) setMenuPermissions(permissions);
     }
 
     @Override

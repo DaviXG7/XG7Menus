@@ -1,6 +1,6 @@
-package com.xg7plugins.temp.xg7menus.events;
+package com.xg7plugins.extension.events;
 
-import com.xg7plugins.temp.xg7menus.menus.holders.MenuHolder;
+import com.xg7plugins.extension.menus.holders.MenuHolder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Location;

@@ -1,14 +1,15 @@
-package com.xg7plugins.temp.xg7menus.menus;
+package com.xg7plugins.extension.menus;
 
 import com.xg7plugins.boot.Plugin;
 import com.xg7plugins.XG7Plugins;
-import com.xg7plugins.temp.xg7menus.MenuPrevents;
-import com.xg7plugins.temp.xg7menus.events.ClickEvent;
-import com.xg7plugins.temp.xg7menus.events.MenuEvent;
-import com.xg7plugins.temp.xg7menus.item.ClickableItem;
-import com.xg7plugins.temp.xg7menus.item.Item;
-import com.xg7plugins.temp.xg7menus.menus.holders.MenuHolder;
-import com.xg7plugins.temp.xg7menus.menus.holders.PageMenuHolder;
+import com.xg7plugins.extension.MenuPermissions;
+import com.xg7plugins.extension.events.ClickEvent;
+import com.xg7plugins.extension.events.DragEvent;
+import com.xg7plugins.extension.events.MenuEvent;
+import com.xg7plugins.extension.item.ClickableItem;
+import com.xg7plugins.extension.item.Item;
+import com.xg7plugins.extension.menus.holders.MenuHolder;
+import com.xg7plugins.extension.menus.holders.PageMenuHolder;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,27 +26,18 @@ import java.util.concurrent.CompletableFuture;
 @Setter(AccessLevel.PROTECTED)
 public abstract class BaseMenu {
 
-    protected Set<MenuPrevents> menuPrevents;
+    protected Set<MenuPermissions> menuPermissions;
     protected final Plugin plugin;
     protected final String id;
 
 
-    protected BaseMenu(Plugin plugin, String id, Set<MenuPrevents> menuPrevents) {
-        this.menuPrevents = menuPrevents;
+    protected BaseMenu(Plugin plugin, String id, Set<MenuPermissions> menuPermissions) {
+        this.menuPermissions = menuPermissions;
         this.plugin = plugin;
         this.id = id;
 
-        if (menuPrevents == null) {
-            Set<MenuPrevents> prevents = new HashSet<>();
-
-            prevents.add(MenuPrevents.CLICK);
-            prevents.add(MenuPrevents.DRAG);
-            prevents.add(MenuPrevents.PLAYER_INTERACT);
-            prevents.add(MenuPrevents.PLAYER_DROP);
-            prevents.add(MenuPrevents.PLAYER_PICKUP);
-            prevents.add(MenuPrevents.PLAYER_BREAK_BLOCKS);
-            prevents.add(MenuPrevents.PLAYER_PLACE_BLOCKS);
-            this.menuPrevents = prevents;
+        if (menuPermissions == null) {
+            this.menuPermissions = new HashSet<>();
         }
 
     }
@@ -58,20 +50,29 @@ public abstract class BaseMenu {
 
     protected abstract List<Item> items(Player player);
 
-    public <T extends MenuEvent> void onClick(T event) {
+    public void onClick(ClickEvent event) {
         event.setCancelled(true);
-        if (event instanceof ClickEvent) {
-            ClickEvent clickEvent = (ClickEvent) event;
-            items((Player) clickEvent.getWhoClicked()).stream().filter(item -> item.getSlot() == clickEvent.getClickedSlot()).findFirst().ifPresent(item -> {
-                if (item instanceof ClickableItem) {
-                    ClickableItem clickableItem = (ClickableItem) item;
-                    clickableItem.getOnClick().accept(clickEvent);
-                }
-            });
-        }
+
+        items((Player) event.getWhoClicked()).stream().filter(item -> item.getSlot() == event.getClickedSlot()).findFirst().ifPresent(item -> {
+            if (item instanceof ClickableItem) {
+                ClickableItem clickableItem = (ClickableItem) item;
+                clickableItem.getOnClick().accept(event);
+            }
+        });
+
     };
-    public void onOpen(MenuEvent event) {}
-    public void onClose(MenuEvent event) {}
+
+    public void onDrag(DragEvent event) {
+        event.setCancelled(!menuPermissions.contains(MenuPermissions.DRAG));
+    }
+
+    public void onOpen(MenuEvent event) {
+        XG7Plugins.getInstance().getDebug().info("menus", "Menu " + id + " opened by " + event.getWhoClicked().getName());
+    }
+    public void onClose(MenuEvent event) {
+        XG7Plugins.getInstance().getDebug().info("menus", "Menu " + id + " closed by " + event.getWhoClicked().getName());
+
+    }
 
     protected CompletableFuture<Void> putItems(Player player, MenuHolder holder) {
         return CompletableFuture.runAsync(() -> {

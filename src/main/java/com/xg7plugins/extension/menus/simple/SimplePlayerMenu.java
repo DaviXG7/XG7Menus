@@ -1,10 +1,11 @@
-package com.xg7plugins.temp.xg7menus.menus.simple;
+package com.xg7plugins.extension.menus.simple;
 
 import com.xg7plugins.boot.Plugin;
-import com.xg7plugins.temp.xg7menus.MenuPrevents;
-import com.xg7plugins.temp.xg7menus.events.MenuEvent;
-import com.xg7plugins.temp.xg7menus.item.Item;
-import com.xg7plugins.temp.xg7menus.menus.player.PlayerMenu;
+import com.xg7plugins.extension.MenuPermissions;
+import com.xg7plugins.extension.menus.player.PlayerMenu;
+import com.xg7plugins.extension.events.MenuEvent;
+import com.xg7plugins.extension.item.Item;
+import com.xg7plugins.extension.menus.player.PlayerMenuMessages;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -17,12 +18,12 @@ public class SimplePlayerMenu extends PlayerMenu {
     private Consumer<MenuEvent> onOpen;
     private Consumer<MenuEvent> onClose;
 
-    public SimplePlayerMenu(Plugin plugin, String id, boolean storeOldItems, List<Item> items, Consumer<MenuEvent> onOpen, Consumer<MenuEvent> onClose, Set<MenuPrevents> prevents) {
-        super(plugin, id,storeOldItems);
+    public SimplePlayerMenu(Plugin plugin, String id, boolean storeOldItems, List<Item> items, Consumer<MenuEvent> onOpen, Consumer<MenuEvent> onClose, Set<MenuPermissions> permissions, PlayerMenuMessages messages) {
+        super(plugin, id, messages, storeOldItems);
         this.items = items;
         this.onOpen = onOpen;
         this.onClose = onClose;
-        if (menuPrevents != null) setMenuPrevents(prevents);
+        if (permissions != null) setMenuPermissions(permissions);
     }
 
     @Override

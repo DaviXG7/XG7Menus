@@ -1,6 +1,6 @@
-package com.xg7plugins.temp.xg7menus.menus;
+package com.xg7plugins.extension.menus;
 
-import com.xg7plugins.temp.xg7menus.menus.gui.Menu;
+import com.xg7plugins.extension.menus.gui.Menu;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.entity.Player;

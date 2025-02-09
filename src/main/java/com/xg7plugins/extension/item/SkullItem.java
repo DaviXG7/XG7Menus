@@ -1,4 +1,4 @@
-package com.xg7plugins.temp.xg7menus.item;
+package com.xg7plugins.extension.item;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -125,7 +125,7 @@ public class SkullItem extends Item {
 
 
             if (conn.getResponseCode() != 200) {
-                XG7Plugins.getInstance().getLog().severe("Erro ao colocar valor de player na skin da cabeça!");
+                XG7Plugins.getInstance().getDebug().severe("menus", "Erro ao colocar valor de player na skin da cabeça!");
                 return this;
             }
             BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));

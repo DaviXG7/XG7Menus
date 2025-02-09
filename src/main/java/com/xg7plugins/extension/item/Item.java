@@ -1,6 +1,8 @@
-package com.xg7plugins.temp.xg7menus.item;
+package com.xg7plugins.extension.item;
 
 import com.cryptomorin.xseries.XMaterial;
+import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
+import com.github.retrooper.packetevents.protocol.nbt.NBTString;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -9,10 +11,9 @@ import com.xg7plugins.XG7Plugins;
 import com.xg7plugins.boot.Plugin;
 import com.xg7plugins.commands.setup.Command;
 import com.xg7plugins.commands.setup.ICommand;
-import com.xg7plugins.utils.reflection.nms.NMSUtil;
-import com.xg7plugins.utils.reflection.ReflectionClass;
 import com.xg7plugins.utils.reflection.ReflectionObject;
 import com.xg7plugins.utils.text.Text;
+import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.bukkit.Material;
@@ -34,10 +35,6 @@ public class Item {
 
     protected ItemStack itemStack;
     protected int slot;
-
-    private static final ReflectionClass nbtTagCompoundClass = NMSUtil.getNMSClassViaVersion(17 , "NBTTagCompound", "nbt.NBTTagCompound");
-    private static final ReflectionClass nmsItemStackClass = NMSUtil.getNMSClassViaVersion(17, "ItemStack", "world.item.ItemStack");
-    private static final ReflectionClass craftItemStackClass = NMSUtil.getCraftBukkitClass("inventory.CraftItemStack");
 
 
     protected HashMap<String, String> buildPlaceholders = new HashMap<>();
@@ -203,21 +200,18 @@ public class Item {
             return this;
         }
 
+        com.github.retrooper.packetevents.protocol.item.ItemStack nmsItem = SpigotReflectionUtil.decodeBukkitItemStack(this.itemStack);
 
-        ReflectionObject nmsItem = craftItemStackClass.getMethod("asNMSCopy", ItemStack.class).invokeToRObject(this.itemStack);
-        if (nmsItem.getMethod("getTag").invoke() == null) {
-            nmsItem.getMethod("setTag", nbtTagCompoundClass.getAClass()).invoke(nbtTagCompoundClass.newInstance());
-        }
-        ReflectionObject tag = nmsItem.getMethod("getTag").invokeToRObject();
+        NBTCompound tag = nmsItem.getNBT();
 
-        if (tag.getObject() == null) tag = nbtTagCompoundClass.newInstance();
+        if (tag == null) tag = new NBTCompound();
 
         String jsonValue = gson.toJson(value);
 
-        tag.getMethod("setString", String.class, String.class).invoke(key, jsonValue);
+        tag.setTag(key, new NBTString(jsonValue));
 
-        nmsItem.getMethod("setTag", nbtTagCompoundClass.getAClass()).invoke(tag.getObject());
-        this.itemStack = craftItemStackClass.getMethod("asBukkitCopy", nmsItemStackClass.getAClass()).invoke(nmsItem.getObject());
+        nmsItem.setNBT(tag);
+        this.itemStack = SpigotReflectionUtil.encodeBukkitItemStack(nmsItem);
         return this;
     }
     public static <T> Optional<T> getTag(String key, ItemStack item, Class<T> clazz) {
@@ -236,15 +230,15 @@ public class Item {
             return Optional.ofNullable(gson.fromJson(meta.getPersistentDataContainer().get(namespacedKey, PersistentDataType.STRING), clazz));
         }
 
-        ReflectionObject nmsItem = craftItemStackClass.getMethod("asNMSCopy", ItemStack.class).invokeToRObject(item);
-        if (nmsItem.getMethod("getTag").invoke() == null) return Optional.empty();
-        ReflectionObject tag = nmsItem.getMethod("getTag").invokeToRObject();
+        com.github.retrooper.packetevents.protocol.item.ItemStack nmsItem = SpigotReflectionUtil.decodeBukkitItemStack(item);
 
-        if (tag != null) {
-            String jsonValue = tag.getMethod("getString", String.class).invoke(key);
-            return Optional.ofNullable(gson.fromJson(jsonValue, clazz));
-        }
-        return Optional.empty();
+        NBTCompound tag = nmsItem.getNBT();
+
+        if (tag == null) return Optional.empty();
+
+        String jsonValue = tag.getStringTagValueOrNull(key);
+        return Optional.ofNullable(gson.fromJson(jsonValue, clazz));
+
     }
 
     public <T> Optional<T> getTag(String key, Class<T> clazz) {
@@ -289,7 +283,7 @@ public class Item {
             ItemStack prepared = this.itemStack.clone();
             ItemMeta meta = prepared.getItemMeta();
             if (meta.getDisplayName() != null) {
-                String newName = Text.detectLangOrText(plugin,player,meta.getDisplayName()).join().replaceAll(buildPlaceholders).getText();
+                String newName = Text.detectLangs(player, plugin,meta.getDisplayName()).join().replaceAll(buildPlaceholders).getText();
                 meta.setDisplayName(newName.isEmpty() ? " " : newName);
             }
 
@@ -297,7 +291,7 @@ public class Item {
                 List<String> lore = new ArrayList<>();
 
                 for (String line : meta.getLore()) {
-                    String formatted = Text.detectLangOrText(plugin,player,line).join().replaceAll(buildPlaceholders).getText();
+                    String formatted = Text.detectLangs(player, plugin,line).join().replaceAll(buildPlaceholders).getText();
                     if (formatted.isEmpty()) continue;
                     lore.add(formatted);
                 }

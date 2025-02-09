@@ -1,9 +1,10 @@
-package com.xg7plugins.temp.xg7menus.menus.gui;
+package com.xg7plugins.extension.menus.gui;
 
 import com.xg7plugins.boot.Plugin;
-import com.xg7plugins.temp.xg7menus.Slot;
-import com.xg7plugins.temp.xg7menus.item.Item;
-import com.xg7plugins.temp.xg7menus.menus.holders.StorageMenuHolder;
+import com.xg7plugins.extension.Slot;
+import com.xg7plugins.extension.Slot;
+import com.xg7plugins.extension.item.Item;
+import com.xg7plugins.extension.menus.holders.StorageMenuHolder;
 import com.xg7plugins.utils.text.Text;
 import com.xg7plugins.utils.text.TextCentralizer;
 import lombok.Getter;
@@ -47,7 +48,7 @@ public abstract class StorageMenu extends Menu {
 
     @Override
     public void open(Player player) {
-        StorageMenuHolder holder = new StorageMenuHolder(id, plugin, Text.detectLangOrText(plugin,player,title).join().getTextCentralized(TextCentralizer.PixelsSize.INV),size,type, this, player);
+        StorageMenuHolder holder = new StorageMenuHolder(id, plugin, Text.detectLangs(player, plugin,title).join().verifyCentralized(TextCentralizer.PixelsSize.INV).getText(),size,type, this, player);
         player.openInventory(holder.getInventory());
         putItems(player, holder);
     }

@@ -1,10 +1,11 @@
-package com.xg7plugins.temp.xg7menus.menus.player;
+package com.xg7plugins.extension.menus.player;
 
 import com.xg7plugins.boot.Plugin;
 import com.xg7plugins.XG7Plugins;
-import com.xg7plugins.temp.xg7menus.events.MenuEvent;
-import com.xg7plugins.temp.xg7menus.menus.BaseMenu;
-import com.xg7plugins.temp.xg7menus.menus.holders.PlayerMenuHolder;
+import com.xg7plugins.extension.XG7MenusExtension;
+import com.xg7plugins.extension.menus.BaseMenu;
+import com.xg7plugins.extension.events.MenuEvent;
+import com.xg7plugins.extension.menus.holders.PlayerMenuHolder;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -14,16 +15,26 @@ import java.util.UUID;
 public abstract class PlayerMenu extends BaseMenu {
 
     private final HashMap<UUID, HashMap<Integer, ItemStack>> playerOldItems;
+    private final PlayerMenuMessages messages;
 
-    protected PlayerMenu(Plugin plugin, String id, boolean storeOldItems) {
+    protected PlayerMenu(Plugin plugin, String id, PlayerMenuMessages messages, boolean storeOldItems) {
         super(plugin, id);
+        this.messages = messages;
         playerOldItems = storeOldItems ? new HashMap<>() : null;
     }
 
-    public void onDrop(MenuEvent event) {}
-    public void onPickup(MenuEvent event) {}
-    public void onBreak(MenuEvent event) {}
-    public void onPlace(MenuEvent event) {}
+    public void onDrop(MenuEvent event) {
+        event.getWhoClicked().sendMessage(messages.getOnDropMessage((Player) event.getWhoClicked()));
+    }
+    public void onPickup(MenuEvent event) {
+        event.getWhoClicked().sendMessage(messages.getOnPickupMessage((Player) event.getWhoClicked()));
+    }
+    public void onBreak(MenuEvent event) {
+        event.getWhoClicked().sendMessage(messages.getOnBreakMessage((Player) event.getWhoClicked()));
+    }
+    public void onPlace(MenuEvent event) {
+        event.getWhoClicked().sendMessage(messages.getOnPlaceMessage((Player) event.getWhoClicked()));
+    }
 
     public void close(Player player) {
 
@@ -33,13 +44,13 @@ public abstract class PlayerMenu extends BaseMenu {
             playerOldItems.remove(player.getUniqueId());
         }
 
-        PlayerMenuHolder holder = XG7Plugins.getInstance().getMenuManager().getPlayerMenusMap().get(player.getUniqueId());
+        PlayerMenuHolder holder = XG7MenusExtension.getInstance().getPlayerMenuHolder(player.getUniqueId());
 
         if (holder == null) return;
 
         MenuEvent event = new MenuEvent(player, MenuEvent.ClickAction.UNKNOWN, holder, player.getLocation());
 
-        XG7Plugins.getInstance().getMenuManager().removePlayerMenu(player.getUniqueId());
+        XG7MenusExtension.getInstance().removePlayerMenuHolder(player.getUniqueId());
 
         onClose(event);
     }
@@ -61,7 +72,7 @@ public abstract class PlayerMenu extends BaseMenu {
 
         PlayerMenuHolder holder = new PlayerMenuHolder(id, plugin, this, player);
 
-        XG7Plugins.getInstance().getMenuManager().addPlayerMenu(player.getUniqueId(), holder);
+        XG7MenusExtension.getInstance().registerPlayerMenuHolder(player.getUniqueId(), holder);
 
         putItems(player, holder);
 
