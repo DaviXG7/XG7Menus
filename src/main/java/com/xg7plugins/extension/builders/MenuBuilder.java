@@ -4,7 +4,7 @@ import com.xg7plugins.boot.Plugin;
 import com.xg7plugins.extension.MenuException;
 import com.xg7plugins.extension.MenuPermissions;
 import com.xg7plugins.extension.events.MenuEvent;
-import com.xg7plugins.extension.item.Item;
+import com.xg7plugins.modules.xg7menus.item.Item;
 import com.xg7plugins.extension.menus.gui.Menu;
 import com.xg7plugins.extension.menus.simple.SimpleMenu;
 import com.xg7plugins.utils.Builder;

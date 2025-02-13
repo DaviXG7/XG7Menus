@@ -3,7 +3,7 @@ package com.xg7plugins.extension.builders;
 import com.xg7plugins.boot.Plugin;
 import com.xg7plugins.extension.MenuPermissions;
 import com.xg7plugins.extension.events.MenuEvent;
-import com.xg7plugins.extension.item.Item;
+import com.xg7plugins.modules.xg7menus.item.Item;
 import com.xg7plugins.extension.menus.player.PlayerMenuMessages;
 import com.xg7plugins.extension.menus.simple.SimplePlayerMenu;
 import com.xg7plugins.utils.Builder;

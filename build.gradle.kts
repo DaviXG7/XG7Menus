@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation(files("D:/XG7Plugins/plugins/XG7Plugins/XG7Plugins/build/libs/XG7Plugins-1.0.jar"))
+    compileOnly(files("D:/XG7Plugins/plugins/XG7Plugins/XG7Plugins/build/libs/XG7Plugins-1.0.jar"))
 
     compileOnly(files("D:/buildTools/spigot-1.16.1.jar"))
     compileOnly(files("D:/buildTools/spigot-1.7.8.jar"))

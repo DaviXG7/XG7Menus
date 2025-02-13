@@ -27,11 +27,9 @@ public class XG7MenusExtension implements Extension {
 
     @Override
     public void onInit() {
-
         instance = this;
 
         getPlugin().getDebug().loading("XG7Menus initialized");
-
     }
 
     public List<Listener> loadListeners() {
